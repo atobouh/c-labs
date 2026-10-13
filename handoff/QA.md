@@ -28,3 +28,17 @@ GCC compiled specimens with `-std=c17 -Wall -Wextra -Wpedantic`. `frame.c` print
 ## Scope
 
 This is a design shell with sample course outlines and interactions. Compiler execution, actual project grading, the complete original course dataset, SQLite persistence, and the Tauri host are later implementation stages. Local draft and library configuration use browser storage in this artifact.
+
+## Native editor polish verification - 2026-10-13
+
+This addition covers the rebuilt R01 host's editor, plus the shared guided-lab browser preview. The original report above describes the earlier design stage.
+
+| Before | After | Why |
+| --- | --- | --- |
+| White native scrollbar, arrow buttons, resize handle | Thin dark thumb, matching track, no arrows or resize handle | Keep browser-owned controls consistent with the workbench |
+| Large editor focus rectangle | Caret and small filename focus marker; no outline/shadow | Show input focus without framing the entire editing surface |
+| Small console type and light footer | 13px console text, 14px code, consistent dark footer | Improve readability and visual continuity |
+
+The final native app was inspected through WebView2 CDP after rebuilding, without injected styles. Computed editor outline/shadow were `none`, resize was `none`, and scrollbar buttons were hidden. Temporary 80-line DOM content scrolled in both directions and was restored without triggering draft persistence. The native screenshot is `../screens/open-lab-native-polished.png`.
+
+Final browser checks at 1024x768 and 390x844 found no page-level horizontal overflow. The narrow preview and guided-lab preview were visually inspected. JavaScript syntax, whitespace checks, and the Windows installer build passed. Full pilot/runtime QA remains R04; compiler execution and grading remain future tasks.

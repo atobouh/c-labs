@@ -1,0 +1,206 @@
+/* Shared by the editable Open Lab and the guided lab preview. */
+.workspace,
+.openlab-layout {
+  --workbench-bg: #1e2632;
+  --workbench-panel: #252f3e;
+  --workbench-console: #191f29;
+  --workbench-line: #364254;
+  --workbench-text: #dce4ee;
+  --workbench-muted: #a7b5c9;
+  color-scheme: dark;
+  background: var(--workbench-bg);
+  color: var(--workbench-text);
+  border-color: #c8ced8;
+}
+
+.workspace-head,
+.open-editor .workspace-head {
+  background: var(--workbench-panel);
+  border-bottom-color: var(--workbench-line);
+  color: var(--workbench-text);
+  font-size: 12px;
+  padding-inline: 22px;
+}
+
+.workspace-head .language {
+  color: var(--workbench-muted);
+  font-size: 12px;
+}
+
+.file-tree {
+  background: var(--workbench-panel);
+  border-right-color: var(--workbench-line);
+  color: var(--workbench-muted);
+}
+
+.file-tree .file-tree-title,
+.file-tree .lib-info {
+  color: var(--workbench-muted);
+  font-size: 12px;
+}
+
+.file-tree .lib-info {
+  border-top-color: var(--workbench-line);
+  line-height: 1.7;
+}
+
+.file-tree button {
+  background: #34445b;
+  color: #e4ebf5;
+  font-size: 12px;
+}
+
+.open-editor textarea {
+  color-scheme: dark;
+  background: var(--workbench-bg);
+  color: var(--workbench-text);
+  caret-color: #f0ce96;
+  font: 14px/1.75 var(--mono);
+  font-variant-ligatures: none;
+  padding: 22px 24px;
+  height: clamp(300px, 42vh, 460px);
+  min-height: 300px;
+  resize: none;
+  border-radius: 0;
+  scrollbar-gutter: stable;
+}
+
+.open-editor textarea:focus,
+.open-editor textarea:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.open-editor .workspace-head > span:first-child::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.open-editor:has(textarea:focus-visible) .workspace-head > span:first-child::before {
+  background: #b2c5df;
+}
+
+.open-editor textarea::selection,
+.code-body ::selection,
+.workspace-console pre::selection {
+  background: #3d5577;
+  color: #fff;
+}
+
+.open-editor textarea,
+.code-body,
+.workspace-console pre {
+  scrollbar-width: thin;
+  scrollbar-color: #657389 var(--workbench-bg);
+}
+
+.open-editor textarea::-webkit-scrollbar,
+.code-body::-webkit-scrollbar,
+.workspace-console pre::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.open-editor textarea::-webkit-scrollbar-track,
+.open-editor textarea::-webkit-scrollbar-corner,
+.code-body::-webkit-scrollbar-track,
+.code-body::-webkit-scrollbar-corner,
+.workspace-console pre::-webkit-scrollbar-track {
+  background: var(--workbench-bg);
+}
+
+.open-editor textarea::-webkit-scrollbar-thumb,
+.code-body::-webkit-scrollbar-thumb,
+.workspace-console pre::-webkit-scrollbar-thumb {
+  background: #657389;
+  border: 3px solid var(--workbench-bg);
+  border-radius: 8px;
+}
+
+.open-editor textarea::-webkit-scrollbar-button,
+.code-body::-webkit-scrollbar-button,
+.workspace-console pre::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Chromium's standard scrollbar properties otherwise override its custom
+   scrollbar parts and reintroduce native arrow buttons in WebView2. */
+@supports selector(::-webkit-scrollbar) {
+  .open-editor textarea,
+  .code-body,
+  .workspace-console pre {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
+}
+
+.code-body {
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.workspace-console,
+.open-editor .workspace-console {
+  background: var(--workbench-console);
+  border-top-color: var(--workbench-line);
+  padding: 18px 22px 22px;
+  min-height: 116px;
+}
+
+.console-label {
+  color: var(--workbench-text);
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 13px;
+  gap: 16px;
+  align-items: baseline;
+}
+
+.console-label > span:last-child {
+  color: var(--workbench-muted);
+  font-weight: 400;
+}
+
+.workspace-console pre {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--workbench-text);
+  overflow-wrap: anywhere;
+}
+
+.workspace-footer,
+.open-editor .workspace-footer {
+  background: var(--workbench-panel);
+  border-top-color: var(--workbench-line);
+  color: var(--workbench-muted);
+  font-size: 12px;
+  padding: 12px 22px;
+}
+
+.workspace-footer .button.primary {
+  background: #49678f;
+  border-color: #607fa7;
+  color: #fff;
+}
+
+.workspace-footer .button.primary:hover {
+  background: #56759e;
+}
+
+@media (max-width: 690px) {
+  .open-editor textarea {
+    font-size: 13px;
+    padding: 20px 16px;
+  }
+
+  .workspace-head,
+  .workspace-console,
+  .workspace-footer {
+    padding-inline: 16px;
+  }
+}
