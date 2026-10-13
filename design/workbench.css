@@ -1,4 +1,20 @@
 /* Shared by the editable Open Lab and the guided lab preview. */
+.toolchain-strip {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-left: auto;
+  color: #5d6b7e;
+  font-size: 12px;
+  min-width: 0;
+}
+.toolchain-strip > span[role="status"] { max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.toolchain-strip .quiet-button { padding: 5px 8px; font-size: 12px; }
+.runtime-cancel { background: transparent; color: #dce4ee; border-color: #62728a; margin-left: auto; }
+#compilerForm label { display: block; margin: 18px 0 7px; font-size: 13px; }
+#compilerForm input { width: 100%; padding: 10px 12px; border: 1px solid #cbd4df; border-radius: 5px; font: 13px var(--mono); }
+#compilerForm p { color: #617185; font-size: 13px; line-height: 1.7; }
+#compilerForm #compilerError { color: #914a40; }
 .workspace,
 .openlab-layout {
   --workbench-bg: #1e2632;

@@ -23,7 +23,9 @@ The NSIS installer is written under `src-tauri/target/release/bundle/nsis/`. Dow
 
 The app embeds the approved local studio, three course outlines, the verified Arrays & Memory pilot package, and its lexicon. It imports and validates these files into a versioned SQLite catalog on first launch; course search and record lookup use that database without network access. Learner drafts live in a separate SQLite database and survive transactional schema upgrades. Existing browser drafts can be imported once without replacing a native draft.
 
-R01 delivers the native host, catalog, course outline view, local search, lexicon, and draft storage. Lesson, exercise, animation, lab execution, project grading, and chapter progression remain clearly marked previews. The app does not compile or execute learner code.
+R01 delivers the native host, catalog, course outline view, local search, lexicon, and draft storage. R02 adds real Open Lab compilation/execution with an installed C17-capable GCC or Clang: use Configure beside the compiler status to select an executable when detection is unavailable. Jobs support live output, cancellation, deadlines, output bounds, and Windows process-tree cleanup. C23 is available only when the compiler accepts `-std=c23`. Course lesson/exercise/lab integration, grading, and progression remain R03 work.
+
+The compiler is an installed prerequisite and is not downloaded automatically. Open Lab executes trusted local code with your privileges, rather than in a security sandbox. See [the runtime contract](handoff/RUNTIME.md) for supported platforms, limits, structured options, and test/data locations.
 
 ## Project layout
 

@@ -1,7 +1,11 @@
 mod catalog;
+pub mod runner;
 mod storage;
 
-use std::{path::Path, sync::Mutex};
+use std::{
+    path::Path,
+    sync::{Arc, Mutex},
+};
 
 use rusqlite::Connection;
 use tauri::{Manager, State};
@@ -9,6 +13,47 @@ use tauri::{Manager, State};
 struct AppState {
     catalog: Mutex<Result<Connection, String>>,
     learner: Mutex<Result<Connection, String>>,
+    runner: Arc<runner::Runner>,
+}
+
+#[tauri::command]
+async fn toolchain_status(state: State<'_, AppState>) -> Result<runner::Compiler, String> {
+    let runner = state.runner.clone();
+    tauri::async_runtime::spawn_blocking(move || runner.toolchain())
+        .await
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+async fn set_compiler_path(
+    path: String,
+    state: State<'_, AppState>,
+) -> Result<runner::Compiler, String> {
+    let runner = state.runner.clone();
+    tauri::async_runtime::spawn_blocking(move || runner.configure_compiler(&path))
+        .await
+        .map_err(|e| e.to_string())?
+}
+
+#[tauri::command]
+async fn start_run(
+    request: runner::RunRequest,
+    state: State<'_, AppState>,
+) -> Result<String, String> {
+    let runner = state.runner.clone();
+    tauri::async_runtime::spawn_blocking(move || runner.start_open(request))
+        .await
+        .map_err(|e| e.to_string())?
+}
+
+#[tauri::command]
+fn get_run(job_id: String, state: State<'_, AppState>) -> Result<runner::JobSnapshot, String> {
+    state.runner.snapshot(&job_id)
+}
+
+#[tauri::command]
+fn cancel_run(job_id: String, state: State<'_, AppState>) -> Result<(), String> {
+    state.runner.cancel(&job_id)
 }
 
 #[tauri::command]
@@ -90,6 +135,11 @@ fn import_browser_draft(source: String, state: State<'_, AppState>) -> Result<bo
 
 pub fn run() {
     tauri::Builder::default()
+        .on_window_event(|window, event| {
+            if matches!(event, tauri::WindowEvent::CloseRequested { .. }) {
+                window.state::<AppState>().runner.cancel_all();
+            }
+        })
         .setup(|app| {
             let resource_root = app
                 .path()
@@ -98,7 +148,15 @@ pub fn run() {
             let resource_root = resource_root
                 .as_deref()
                 .map_err(|error| format!("Could not locate bundled course data: {error}"));
-            let (catalog, learner) = match app.path().app_data_dir() {
+            let data_path = match std::env::var_os("CLAB_DATA_DIR") {
+                Some(path) => Ok(std::path::PathBuf::from(path)),
+                None => app.path().app_data_dir(),
+            };
+            let job_root = data_path
+                .as_ref()
+                .map(|p| p.join("jobs"))
+                .unwrap_or_else(|_| std::env::temp_dir().join("machine-room-jobs"));
+            let (catalog, learner) = match data_path {
                 Ok(data_dir) => match std::fs::create_dir_all(&data_dir) {
                     Ok(()) => {
                         let catalog_result = initialize_catalog(
@@ -121,6 +179,7 @@ pub fn run() {
             app.manage(AppState {
                 catalog: Mutex::new(catalog),
                 learner: Mutex::new(learner),
+                runner: Arc::new(runner::Runner::new(job_root)),
             });
             Ok(())
         })
@@ -132,6 +191,11 @@ pub fn run() {
             get_open_lab_draft,
             save_open_lab_draft,
             import_browser_draft,
+            toolchain_status,
+            set_compiler_path,
+            start_run,
+            get_run,
+            cancel_run,
         ])
         .run(tauri::generate_context!())
         .expect("failed to start Machine Room");
