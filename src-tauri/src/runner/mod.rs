@@ -22,6 +22,9 @@ pub const OUTPUT_LIMIT: usize = 65_536;
 pub const COMPILE_MS: u64 = 10_000;
 pub const RUN_MS: u64 = 2_000;
 pub const MAX_SOURCE_BYTES: usize = 1_048_576;
+// Native tests share the same finite compiler budget as the single-job application.
+#[cfg(test)]
+pub(crate) static TEST_JOB_LOCK: Mutex<()> = Mutex::new(());
 
 #[derive(Clone, Debug, Serialize)]
 pub struct Compiler {

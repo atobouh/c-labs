@@ -3,7 +3,7 @@ name: Windows offline release
 on:
   push:
     tags:
-      - "v*-r01"
+      - "v*-r03"
 
 permissions:
   contents: write
@@ -34,6 +34,9 @@ jobs:
         run: |
           py -3 tools/check_foundation.py --release
           node --check design/studio.js
+          node --check design/runtime.js
+          node --check design/learning.js
+          node --check tools/test_desktop_r03.mjs
           cargo fmt --manifest-path src-tauri/Cargo.toml --all -- --check
           cargo clippy --locked --all-targets --manifest-path src-tauri/Cargo.toml -- -D warnings
 
@@ -42,6 +45,19 @@ jobs:
 
       - name: Build the small Windows installer
         run: npm run tauri:build:windows
+
+      - name: Verify the native offline learning pilot
+        run: node tools/test_desktop_r03.mjs src-tauri/target/release/machine-room.exe src-tauri/target/r03-native-evidence
+
+      - name: Preserve native integration evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r03-native-evidence
+          path: |
+            src-tauri/target/r03-native-evidence/evidence.json
+            src-tauri/target/r03-native-evidence/*.png
+          if-no-files-found: ignore
 
       - name: Check installer size
         shell: pwsh
@@ -55,11 +71,16 @@ jobs:
         shell: pwsh
         run: .\tools\smoke_tauri_offline.ps1 -Executable .\src-tauri\target\release\machine-room.exe
 
-      - name: Publish downloadable R01 preview
+      - name: Publish downloadable R03 pilot
         shell: pwsh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           $installer = Get-ChildItem -LiteralPath '.\src-tauri\target\release\bundle\nsis' -Filter '*setup.exe' -File | Select-Object -First 1
           if (-not $installer) { throw 'Tauri did not produce an NSIS setup executable.' }
-          gh release create $env:GITHUB_REF_NAME $installer.FullName --repo $env:GITHUB_REPOSITORY --verify-tag --title 'Machine Room - R01 offline catalog preview' --notes-file .github/release-notes-r01.md --prerelease
+          gh release view $env:GITHUB_REF_NAME --repo $env:GITHUB_REPOSITORY --json tagName 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload $env:GITHUB_REF_NAME $installer.FullName --repo $env:GITHUB_REPOSITORY --clobber
+          } else {
+            gh release create $env:GITHUB_REF_NAME $installer.FullName --repo $env:GITHUB_REPOSITORY --verify-tag --title 'Machine Room - R02/R03 offline learning pilot' --notes-file .github/release-notes-r03.md --prerelease
+          }

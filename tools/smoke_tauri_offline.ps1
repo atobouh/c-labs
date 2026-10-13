@@ -51,7 +51,7 @@ assert catalog.execute("select count(*) from chapters").fetchone() == (24,)
 assert catalog.execute("select count(*) from catalog_items").fetchone() == (14,)
 assert catalog.execute("select count(*) from lexicon_entries").fetchone() == (8,)
 assert catalog.execute("select count(*) from search_documents where lower(search_text) like '%one-past%'").fetchone()[0] > 0
-assert learner.execute("pragma user_version").fetchone() == (2,)
+assert learner.execute("pragma user_version").fetchone() == (3,)
 print("Offline launch, local catalog lookup, and learner migration passed.")
 '@ | py -3 - $catalogPath $learnerPath
 }

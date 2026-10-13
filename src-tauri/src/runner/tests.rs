@@ -71,6 +71,7 @@ fn filenames_and_submission_identity_are_bounded() {
 
 #[test]
 fn unavailable_compiler_is_distinct() {
+    let _native_guard = TEST_JOB_LOCK.lock().unwrap();
     let root = root("missing");
     let result = execute_open(
         "missing",
@@ -97,6 +98,7 @@ fn serialized_output_respects_byte_limits_without_splitting_unicode() {
 #[cfg(windows)]
 #[test]
 fn normal_output_compile_error_and_failed_test_use_real_learner_code() {
+    let _native_guard = TEST_JOB_LOCK.lock().unwrap();
     let good = run("#include <stdio.h>\nint main(void){puts(\"99\");return 0;}\n");
     assert_eq!(good.status, "passed");
     assert_eq!(good.stdout.replace("\r\n", "\n"), "99\n");
@@ -116,6 +118,7 @@ fn normal_output_compile_error_and_failed_test_use_real_learner_code() {
 #[cfg(windows)]
 #[test]
 fn nonterminating_and_output_flood_programs_are_stopped() {
+    let _native_guard = TEST_JOB_LOCK.lock().unwrap();
     let timeout = run("int main(void){for(;;){} }\n");
     assert_eq!(timeout.status, "timed-out");
     assert!(timeout.elapsed_ms < COMPILE_MS + RUN_MS + 2000);
@@ -131,6 +134,7 @@ fn nonterminating_and_output_flood_programs_are_stopped() {
 #[cfg(windows)]
 #[test]
 fn cancellation_and_next_job_are_reliable() {
+    let _native_guard = TEST_JOB_LOCK.lock().unwrap();
     let root = root("cancel");
     let runner = Arc::new(Runner::new(root));
     let id = runner
@@ -170,6 +174,7 @@ fn wait(runner: &Runner, id: &str) -> JobResult {
 #[cfg(windows)]
 #[test]
 fn surviving_child_process_is_terminated_after_parent_exit() {
+    let _native_guard = TEST_JOB_LOCK.lock().unwrap();
     let code = r#"#include <windows.h>
 #include <stdio.h>
 int main(int argc, char **argv) {

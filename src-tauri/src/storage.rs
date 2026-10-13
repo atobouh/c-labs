@@ -38,7 +38,7 @@ pub fn migrate_learner(connection: &mut Connection) -> Result<(), String> {
     let version: u32 = connection
         .pragma_query_value(None, "user_version", |row| row.get(0))
         .map_err(|error| format!("Could not read learner database version: {error}"))?;
-    if version > 2 {
+    if version > 3 {
         return Err(format!(
             "Learner database schema {version} is newer than this app supports."
         ));
@@ -61,6 +61,14 @@ pub fn migrate_learner(connection: &mut Connection) -> Result<(), String> {
         transaction
             .pragma_update(None, "user_version", 2)
             .map_err(|error| format!("Could not record learner database version: {error}"))?;
+    }
+    if version < 3 {
+        transaction
+            .execute_batch(include_str!("../migrations/learner/0003.sql"))
+            .map_err(|e| e.to_string())?;
+        transaction
+            .pragma_update(None, "user_version", 3)
+            .map_err(|e| e.to_string())?;
     }
     transaction
         .commit()
@@ -160,7 +168,7 @@ mod tests {
         let version: u32 = connection
             .pragma_query_value(None, "user_version", |row| row.get(0))
             .unwrap();
-        assert_eq!(version, 2);
+        assert_eq!(version, 3);
     }
 
     #[test]
