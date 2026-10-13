@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": "lesson-valid-range",
+  "kind": "lesson",
+  "title": "The valid range",
+  "objective_ids": ["obj-bounds"],
+  "body_path": "content/foundations/arrays-memory/lessons/valid-range.md",
+  "prerequisite_ids": ["lesson-index-offset"],
+  "example_paths": ["content/foundations/arrays-memory/lessons/examples/valid-range.c"],
+  "checkpoint_ids": ["checkpoint-one-past"],
+  "citations": [
+    {
+      "source_id": "wg14-c17",
+      "locator": "6.5.6 paragraphs 8-9",
+      "claim": "A one-past pointer may be formed but not dereferenced as an array element; pointer arithmetic must remain within the array range."
+    },
+    {
+      "source_id": "wg14-c17",
+      "locator": "6.5.2.1 paragraph 2",
+      "claim": "Array subscripting evaluates through pointer indirection, so a forbidden subscript is not a predictable value."
+    }
+  ]
+}

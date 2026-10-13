@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "exercise-one-past",
+  "kind": "exercise",
+  "objective_ids": ["obj-bounds"],
+  "prompt": "For an actual six-element array, classify the pointer at index 6. Choose whether it can be formed and whether it can be dereferenced as an element.",
+  "model": {
+    "array_name": "samples",
+    "element_count": 6,
+    "last_valid_index": 5,
+    "one_past_index": 6,
+    "operation": "form samples + 6, then consider dereferencing it"
+  },
+  "answer": {
+    "type": "one_past_classification",
+    "value": {"index": 6, "can_form": true, "can_dereference": false}
+  },
+  "error_categories": [
+    {"id": "wrong_boundary", "when": {"all": [{"path":"index","op":"neq","value":6}]}},
+    {"id": "cannot_form", "when": {"all": [{"path":"can_form","op":"eq","value":false}]}},
+    {"id": "can_read_one_past", "when": {"all": [{"path":"can_form","op":"eq","value":true},{"path":"can_dereference","op":"eq","value":true}]}},
+    {"id": "other", "when": {"otherwise":true}}
+  ],
+  "feedback": {
+    "correct": "The one-past pointer may mark the array boundary, but it does not point to a readable element.",
+    "incorrect": {
+      "cannot_form": "C permits forming the one-past pointer for an actual array; forming it is different from reading through it.",
+      "can_read_one_past": "The one-past position is not an element. Do not evaluate a dereference there.",
+      "wrong_boundary": "Six elements have indices 0 through 5. The position after them has index 6.",
+      "other": "Classify pointer formation and element access as two separate operations."
+    }
+  },
+  "hints": [
+    {"level": 1, "text": "Separate making a pointer value from accessing an element through it."},
+    {"level": 2, "text": "For six elements, index 5 is last and index 6 is the boundary after it."},
+    {"level": 3, "text": "The one-past pointer may be formed, but it may not be dereferenced."}
+  ],
+  "review_tags": ["obj-bounds", "one-past", "invalid-dereference"],
+  "citations": [
+    {"source_id": "wg14-c17", "locator": "6.5.6 paragraphs 8-9", "claim": "The one-past pointer may be formed but cannot be used as an array element."},
+    {"source_id": "wg14-c17", "locator": "6.5.2.1 paragraph 2", "claim": "Array subscripting is defined through pointer addition and indirection; the one-past restriction follows from the cited pointer-arithmetic clause."}
+  ]
+}

@@ -1,0 +1,21 @@
+# Python caches and environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Build output
+/target/
+/node_modules/
+/dist/
+/build/
+*.log
+
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Third-party reference captures retained locally pending individual rights review
+/research/reference-images/

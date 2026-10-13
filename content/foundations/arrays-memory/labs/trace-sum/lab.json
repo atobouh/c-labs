@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "id": "lab-trace-sum",
+  "kind": "lab",
+  "objective_ids": ["obj-index"],
+  "brief_path": "brief.md",
+  "starter_files": ["starter/sum_readings.c"],
+  "learner_source_paths": ["starter/sum_readings.c"],
+  "solution_files": ["solutions/sum_readings.c"],
+  "test_source_paths": ["tests/test_driver.c"],
+  "fixture_paths": ["include/sum_readings.h", "fixtures/fixtures.h"],
+  "profile": {
+    "standard": "c17",
+    "compiler_family": "GCC or Clang",
+    "compiler_version_requirement": "C17-capable; record exact compiler identity and version",
+    "compiler_args": ["-std=c17", "-Wall", "-Wextra", "-Wpedantic"],
+    "target_adjustments": [{"target":"MinGW-w64","args":["-D__USE_MINGW_ANSI_STDIO=1"]}],
+    "compile_timeout_ms": 10000,
+    "run_timeout_ms": 2000,
+    "output_limit_bytes": 65536
+  },
+  "solution_reveal_policy": "Instructor reference is excluded from learner starter files; reveal only on an explicit learner request or after an accepted attempt.",
+  "starter_must_fail": ["sample-sum", "single-value", "max-capacity"],
+  "checks": [
+    {"id":"compile-c17","description":"Starter and submission compile as C17 with the declared warnings enabled.","kind":"compile","expected":{"exit_code":0,"warnings":0}},
+    {"id":"sample-sum","description":"Accumulate the six sample values once each.","kind":"assertion-harness","inputs":{"readings":[12,18,9,21,15,24],"count":6},"expected":{"return":0,"sum":99}},
+    {"id":"empty-null","description":"Treat a null pointer with zero count as valid empty input.","kind":"assertion-harness","inputs":{"readings":null,"count":0},"expected":{"return":0,"sum":0}},
+    {"id":"single-value","description":"Handle a one-element range.","kind":"assertion-harness","inputs":{"readings":[42],"count":1},"expected":{"return":0,"sum":42}},
+    {"id":"zeros","description":"Sum valid zero values without inventing a nonzero total.","kind":"assertion-harness","inputs":{"readings":[0,0,0],"count":3},"expected":{"return":0,"sum":0}},
+    {"id":"max-capacity","description":"Accumulate the largest permitted total without overflowing int.","kind":"assertion-harness","inputs":{"reading":1000,"count":30},"expected":{"return":0,"sum":30000}},
+    {"id":"invalid-low","description":"Reject a value below the accepted range and clear output.","kind":"assertion-harness","inputs":{"readings":[-1],"count":1},"expected":{"return":-1,"sum":0}},
+    {"id":"invalid-high","description":"Reject a value above the accepted range and clear output.","kind":"assertion-harness","inputs":{"readings":[1001],"count":1},"expected":{"return":-1,"sum":0}},
+    {"id":"too-many","description":"Reject a count greater than the capacity.","kind":"assertion-harness","inputs":{"count":31},"expected":{"return":-1,"sum":0}},
+    {"id":"null-input","description":"Reject a null pointer for a nonempty range and clear output.","kind":"assertion-harness","inputs":{"readings":null,"count":1},"expected":{"return":-1,"sum":0}},
+    {"id":"null-output","description":"Reject a null output pointer without dereferencing it.","kind":"assertion-harness","inputs":{"readings":[12,18,9,21,15,24],"count":6,"out_sum":null},"expected":{"return":-1}}
+  ],
+  "mutations": [
+    {"id":"hardcoded-sample","path":"mutants/hardcoded-sample.c","must_fail":["single-value","zeros","max-capacity"]},
+    {"id":"skip-last","path":"mutants/skip-last.c","must_fail":["sample-sum","single-value"]},
+    {"id":"stale-empty-output","path":"mutants/stale-empty-output.c","must_fail":["empty-null"]}
+  ],
+  "hints": [
+    {"level":1,"text":"Write down the number of values before choosing a loop condition."},
+    {"level":2,"text":"Validate the count and input pointer before reading an element."},
+    {"level":3,"text":"Accumulate in a local total; assign to the output only after the loop succeeds."}
+  ],
+  "citations": [
+    {"source_id":"wg14-c17","locator":"6.5.2.1 paragraph 2","claim":"Each subscript selects an element through pointer addition and indirection."},
+    {"source_id":"wg14-c17","locator":"6.5.6 paragraphs 8-9","claim":"The loop must stay inside the element range defined by count."},
+    {"source_id":"gcc-manual","locator":"GCC online manual 17.0.0, section 3.9","claim":"The profile enables -Wall, -Wextra, and -Wpedantic as compiler warning groups."}
+  ]
+}

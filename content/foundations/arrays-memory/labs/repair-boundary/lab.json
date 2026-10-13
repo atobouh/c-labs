@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "lab-repair-boundary",
+  "kind": "lab",
+  "objective_ids": ["obj-bounds"],
+  "brief_path": "brief.md",
+  "starter_files": ["starter/sum_readings.c"],
+  "learner_source_paths": ["starter/sum_readings.c"],
+  "solution_files": ["solutions/sum_readings.c"],
+  "test_source_paths": ["tests/test_driver.c"],
+  "fixture_paths": ["include/sum_readings.h", "fixtures/fixtures.h"],
+  "profile": {
+    "standard": "c17",
+    "compiler_family": "GCC or Clang",
+    "compiler_version_requirement": "C17-capable; record exact compiler identity and version",
+    "compiler_args": ["-std=c17", "-Wall", "-Wextra", "-Wpedantic"],
+    "target_adjustments": [{"target":"MinGW-w64","args":["-D__USE_MINGW_ANSI_STDIO=1"]}],
+    "compile_timeout_ms": 10000,
+    "run_timeout_ms": 2000,
+    "output_limit_bytes": 65536
+  },
+  "optional_sanitizer_profile": {
+    "id": "address-sanitizer-c17",
+    "compiler_args": ["-fsanitize=address", "-fno-omit-frame-pointer", "-O0", "-g"],
+    "availability": "probe the installed compiler and runtime; unavailable is not a pass",
+    "negative_test_source": "tests/test_exact_size_boundary.c",
+    "intentional_mutant": "mutants/inclusive-end.c",
+    "diagnostic_category": "AddressSanitizer report for an out-of-bounds read"
+  },
+  "solution_reveal_policy": "Instructor reference is excluded from learner starter files; reveal only on an explicit learner request or after an accepted attempt.",
+  "intentional_failure": "The starter reads the logical element at index count. The normal harness pads every test array with an accessible sentinel, so rejection is deterministic and does not depend on undefined behavior. Running this general-purpose buggy function with an exact-size array may have undefined behavior; only the optional AddressSanitizer negative test does that, and it expects a sanitizer diagnostic rather than a particular output or crash value.",
+  "starter_must_fail": ["empty-with-sentinel", "sample-sentinel-excluded", "single-sentinel-excluded", "max-sentinel-excluded"],
+  "checks": [
+    {"id":"compile-c17","description":"Starter and submission compile as C17 with the declared warnings enabled.","kind":"compile","expected":{"exit_code":0,"warnings":0}},
+    {"id":"empty-with-sentinel","description":"An empty logical range does not consume its accessible guard value.","kind":"assertion-harness","inputs":{"readings":[700],"count":0},"expected":{"return":0,"sum":0}},
+    {"id":"empty-null","description":"Accept a null pointer for a zero-length range without dereferencing it.","kind":"assertion-harness","inputs":{"readings":null,"count":0},"expected":{"return":0,"sum":0}},
+    {"id":"sample-sentinel-excluded","description":"Respect count 6 even though a seventh physical sentinel is accessible.","kind":"assertion-harness","inputs":{"readings":[12,18,9,21,15,24,777],"count":6},"expected":{"return":0,"sum":99}},
+    {"id":"single-sentinel-excluded","description":"Read only the single logical element.","kind":"assertion-harness","inputs":{"readings":[42,123],"count":1},"expected":{"return":0,"sum":42}},
+    {"id":"max-sentinel-excluded","description":"Sum exactly the 30 permitted elements, excluding the physical guard.","kind":"assertion-harness","inputs":{"reading":1000,"count":30,"sentinel":5},"expected":{"return":0,"sum":30000}},
+    {"id":"invalid-low","description":"Reject a value below the declared range.","kind":"assertion-harness","inputs":{"readings":[-1,0],"count":1},"expected":{"return":-1,"sum":0}},
+    {"id":"invalid-high","description":"Reject a value above the declared range.","kind":"assertion-harness","inputs":{"readings":[1001,0],"count":1},"expected":{"return":-1,"sum":0}},
+    {"id":"too-many","description":"Reject count 31 before traversal.","kind":"assertion-harness","inputs":{"count":31},"expected":{"return":-1,"sum":0}},
+    {"id":"null-input","description":"Reject a null pointer for nonempty input.","kind":"assertion-harness","inputs":{"readings":null,"count":1},"expected":{"return":-1,"sum":0}},
+    {"id":"null-output","description":"Reject a null output pointer.","kind":"assertion-harness","inputs":{"out_sum":null},"expected":{"return":-1}},
+    {"id":"asan-exact-size-negative","description":"When AddressSanitizer is supported, detect the intentional inclusive-end read against an exact-size array.","kind":"sanitizer","required":false,"supported_profiles":["address-sanitizer-c17"],"expected":{"diagnostic_category":"AddressSanitizer"}}
+  ],
+  "mutations": [
+    {"id":"inclusive-end","path":"mutants/inclusive-end.c","must_fail":["empty-with-sentinel","sample-sentinel-excluded"]},
+    {"id":"skip-last","path":"mutants/skip-last.c","must_fail":["sample-sentinel-excluded","single-sentinel-excluded"]}
+  ],
+  "hints": [
+    {"level":1,"text":"Write the valid index interval for count 3."},
+    {"level":2,"text":"The sentinel is physically present but outside the pointer-plus-count contract."},
+    {"level":3,"text":"The correct loop continues only while i < count."}
+  ],
+  "citations": [
+    {"source_id":"wg14-c17","locator":"6.5.6 paragraphs 8-9","claim":"Array pointer arithmetic has a one-past boundary, which is not an element that can be dereferenced."},
+    {"source_id":"clang-asan","locator":"AddressSanitizer online manual, Introduction and Limitations","claim":"The optional sanitizer profile can detect certain out-of-bounds accesses but is platform-dependent and does not prove correctness."},
+    {"source_id":"gcc-manual","locator":"GCC online manual 17.0.0, section 3.9","claim":"The base profile enables the documented GCC warning groups."}
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "lesson-carry-count",
+  "kind": "lesson",
+  "title": "Carry the count",
+  "objective_ids": ["obj-count"],
+  "body_path": "content/foundations/arrays-memory/lessons/carry-count.md",
+  "prerequisite_ids": ["lesson-valid-range"],
+  "example_paths": [
+    "content/foundations/arrays-memory/lessons/examples/carry-count/main.c",
+    "content/foundations/arrays-memory/lessons/examples/carry-count/sum_values.c",
+    "content/foundations/arrays-memory/lessons/examples/carry-count/sum_values.h"
+  ],
+  "checkpoint_ids": ["checkpoint-explicit-count"],
+  "citations": [
+    {
+      "source_id": "wg14-c17",
+      "locator": "6.7.6.3 paragraph 7",
+      "claim": "A function parameter declared as an array is adjusted to a pointer parameter."
+    },
+    {
+      "source_id": "wg14-c17",
+      "locator": "6.3.2.1 paragraph 3",
+      "claim": "Array expressions are converted to pointers to their first elements in the stated expression contexts."
+    }
+  ]
+}

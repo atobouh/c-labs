@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "id": "lab-count-api",
+  "kind": "lab",
+  "objective_ids": ["obj-count"],
+  "brief_path": "brief.md",
+  "starter_files": ["starter/sensor_analysis.c"],
+  "learner_source_paths": ["starter/sensor_analysis.c"],
+  "solution_files": ["solutions/sensor_analysis.c"],
+  "test_source_paths": ["tests/test_driver.c"],
+  "fixture_paths": ["include/sensor_analysis.h", "fixtures/fixtures.h"],
+  "profile": {
+    "standard": "c17",
+    "compiler_family": "GCC or Clang",
+    "compiler_version_requirement": "C17-capable; record exact compiler identity and version",
+    "compiler_args": ["-std=c17", "-Wall", "-Wextra", "-Wpedantic"],
+    "target_adjustments": [{"target":"MinGW-w64","args":["-D__USE_MINGW_ANSI_STDIO=1"]}],
+    "compile_timeout_ms": 10000,
+    "run_timeout_ms": 2000,
+    "output_limit_bytes": 65536
+  },
+  "solution_reveal_policy": "Instructor reference is excluded from learner starter files; reveal only on an explicit learner request or after an accepted attempt.",
+  "starter_must_fail": ["sample-stats", "single-value", "fractional-mean", "invalid-high"],
+  "checks": [
+    {"id":"compile-c17","description":"Build the analysis implementation and separate test-driver translation unit.","kind":"compile","expected":{"exit_code":0,"warnings":0}},
+    {"id":"sample-stats","description":"Compute every field for the six-value sample.","kind":"assertion-harness","inputs":{"readings":[12,18,9,21,15,24],"count":6},"expected":{"status":"ok","count":6,"sum":99,"minimum":9,"maximum":24,"mean":16.5,"mean_tolerance":1e-6}},
+    {"id":"empty-null","description":"Return explicit empty status for a null pointer and zero count.","kind":"assertion-harness","inputs":{"readings":null,"count":0},"expected":{"status":"empty","count":0,"sum":0,"minimum":0,"maximum":0,"mean":0}},
+    {"id":"empty-nonnull","description":"Treat zero count as empty even when an unused pointer is non-null.","kind":"assertion-harness","inputs":{"count":0},"expected":{"status":"empty","count":0,"sum":0,"minimum":0,"maximum":0,"mean":0}},
+    {"id":"single-value","description":"Handle one valid reading with equal minimum and maximum.","kind":"assertion-harness","inputs":{"readings":[42],"count":1},"expected":{"status":"ok","count":1,"sum":42,"minimum":42,"maximum":42,"mean":42}},
+    {"id":"zeros","description":"Preserve measured zero extrema for nonempty all-zero input.","kind":"assertion-harness","inputs":{"readings":[0,0,0],"count":3},"expected":{"status":"ok","count":3,"sum":0,"minimum":0,"maximum":0,"mean":0}},
+    {"id":"repeated-values","description":"Handle repeated values without changing count or extrema.","kind":"assertion-harness","inputs":{"readings":[7,7,7,7],"count":4},"expected":{"status":"ok","count":4,"sum":28,"minimum":7,"maximum":7,"mean":7}},
+    {"id":"fractional-mean","description":"Divide by the actual count and compare with the declared tolerance.","kind":"assertion-harness","inputs":{"readings":[1,2,10],"count":3},"expected":{"status":"ok","count":3,"sum":13,"minimum":1,"maximum":10,"mean":4.333333333333333,"mean_tolerance":1e-6}},
+    {"id":"max-capacity","description":"Accept all 30 maximum readings with a safe int sum.","kind":"assertion-harness","inputs":{"reading":1000,"count":30},"expected":{"status":"ok","count":30,"sum":30000,"minimum":1000,"maximum":1000,"mean":1000}},
+    {"id":"invalid-low","description":"Reject a low invalid value and leave all output fields zero.","kind":"assertion-harness","inputs":{"readings":[20,-1],"count":2},"expected":{"status":"reading_out_of_range","count":0,"sum":0,"minimum":0,"maximum":0,"mean":0}},
+    {"id":"invalid-high","description":"Reject a high invalid value and leave output zero.","kind":"assertion-harness","inputs":{"readings":[1001],"count":1},"expected":{"status":"reading_out_of_range","count":0,"sum":0,"minimum":0,"maximum":0,"mean":0}},
+    {"id":"too-many","description":"Reject counts above capacity and leave output zero.","kind":"assertion-harness","inputs":{"count":31},"expected":{"status":"invalid_argument","count":0,"sum":0,"minimum":0,"maximum":0,"mean":0}},
+    {"id":"null-input","description":"Reject a null pointer for a nonempty range.","kind":"assertion-harness","inputs":{"readings":null,"count":1},"expected":{"status":"invalid_argument","count":0,"sum":0,"minimum":0,"maximum":0,"mean":0}},
+    {"id":"null-output","description":"Return invalid-argument for a null output pointer.","kind":"assertion-harness","inputs":{"out_stats":null},"expected":{"status":"invalid_argument"}}
+  ],
+  "mutations": [
+    {"id":"hardcoded-sample","path":"mutants/hardcoded-sample.c","must_fail":["single-value","fractional-mean","max-capacity"]},
+    {"id":"wrong-empty-status","path":"mutants/wrong-empty-status.c","must_fail":["empty-null","empty-nonnull"]},
+    {"id":"wrong-mean-denominator","path":"mutants/wrong-mean-denominator.c","must_fail":["single-value","fractional-mean"]},
+    {"id":"skip-last","path":"mutants/skip-last.c","must_fail":["sample-stats","single-value"]}
+  ],
+  "hints": [
+    {"level":1,"text":"List the output fields that must remain zero when no result is available."},
+    {"level":2,"text":"Validate the entire input before writing nonzero statistics to the output object."},
+    {"level":3,"text":"Use count for traversal and as the denominator only after the empty case is handled."}
+  ],
+  "citations": [
+    {"source_id":"wg14-c17","locator":"6.7.6.3 paragraph 7","claim":"An array parameter is adjusted to a pointer; the count is an explicit separate parameter."},
+    {"source_id":"wg14-c17","locator":"6.5.6 paragraphs 8-9","claim":"The traversal uses only the pointer/count range and does not dereference its one-past boundary."},
+    {"source_id":"gcc-manual","locator":"GCC online manual 17.0.0, section 3.9","claim":"The profile enables documented GCC warning groups."}
+  ]
+}

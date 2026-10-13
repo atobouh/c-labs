@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "wg14-c17",
+      "title": "C17 committee draft N2176",
+      "author": "WG14",
+      "url": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2176.pdf",
+      "version": "C17 ballot draft N2176; WG14 document log entry 2017-10-09 labels it proposed document C17; standard text is ISO/IEC 9899:2017.",
+      "accessed_on": "2026-10-13",
+      "license_evidence_url": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2176.pdf",
+      "redistribution": "original-reference",
+      "status": "reviewed",
+      "notes": "Primary normative source. The official PDF endpoint returned HTTP 200 (533 pages) but is password-protected against text extraction in local readers and PDF parsers. The exact section/paragraph locators were cross-checked in a 534-page full-text copy titled ISO/IEC 9899:2017 C17 ballot N2176, hosted at bolha.dev (secondary mirror, used only to locate clauses). Do not treat that mirror as the citation URL and do not bundle standard text. No redistribution grant was found; citation-only."
+    },
+    {
+      "id": "gcc-manual",
+      "title": "GCC online documentation",
+      "author": "GNU Project",
+      "url": "https://gcc.gnu.org/onlinedocs/",
+      "version": "GCC online manual 17.0.0 as served on access date. Compiler installation/version remains a lab profile choice.",
+      "accessed_on": "2026-10-13",
+      "license_evidence_url": "https://gcc.gnu.org/onlinedocs/gcc/GNU-Free-Documentation-License.html",
+      "redistribution": "original-reference",
+      "status": "reviewed",
+      "notes": "Section 3.9, Options to Request or Suppress Warnings: -Wall, -Wextra, -Wpedantic. GCC states warnings are not errors by default; -Werror promotes warnings to errors. Online manual copying notice: GNU Free Documentation License 1.3 or later with invariant/front-cover/back-cover text conditions. Reference and cite only; do not copy manual passages/assets into lessons."
+    },
+    {
+      "id": "clang-asan",
+      "title": "AddressSanitizer documentation",
+      "author": "LLVM Project",
+      "url": "https://clang.llvm.org/docs/AddressSanitizer.html",
+      "version": "LLVM/Clang AddressSanitizer online manual; no fixed documentation version is stated on the page, so record retrieval date and pin/test the installed compiler for each lab.",
+      "accessed_on": "2026-10-13",
+      "license_evidence_url": "https://clang.llvm.org/docs/AddressSanitizer.html",
+      "redistribution": "original-reference",
+      "status": "reviewed",
+      "notes": "Sections Introduction, Limitations, Supported Platforms. Confirms classes such as out-of-bounds and use-after-free, plus resource/platform limitations. The documentation page did not show a separate documentation reuse grant; use as linked reference only and do not reproduce the prose/examples."
+    },
+    {
+      "id": "cs50-c",
+      "title": "CS50x C learning sequence",
+      "author": "Harvard CS50",
+      "url": "https://cs50.harvard.edu/x/weeks/1/",
+      "version": "CS50x 2026 Week 1 C page. The page title is 2026; some linked lecture assets point into a 2025/fall path, so treat this as current course reference but recheck each media/assignment revision if later needed.",
+      "accessed_on": "2026-10-13",
+      "license_evidence_url": "https://cs50.harvard.edu/x/2026/license/",
+      "redistribution": "link-only",
+      "status": "reviewed",
+      "notes": "Week 1 page lists C, compilers, types, conditions, loops, command-line workflow, and a problem set. The official 2026 course license is CC BY-NC-SA 4.0; third-party material may have separate terms. Noncommercial and ShareAlike obligations make adaptation unsuitable as an assumed app-content license. Link only; author original lessons."
+    },
+    {
+      "id": "mit-c",
+      "title": "Introduction to C and C++",
+      "author": "MIT OpenCourseWare",
+      "url": "https://ocw.mit.edu/courses/6-s096-introduction-to-c-and-c-january-iap-2013/",
+      "version": "Introduction to C and C++, MIT 6.S096, January IAP 2013. Historical course; explicitly mixes C and C++.",
+      "accessed_on": "2026-10-13",
+      "license_evidence_url": "https://ocw.mit.edu/pages/privacy-and-terms-of-use/",
+      "redistribution": "link-only",
+      "status": "reviewed",
+      "notes": "The course page confirms daily assignments and a small individual project. MIT OCW site terms default to CC BY-NC-SA 4.0 where not otherwise noted, with per-item exclusions/permissions possible; course use is subject to noncommercial, attribution, and ShareAlike conditions. Use the course as a design reference and link only; check each item before any reuse."
+    },
+    {
+      "id": "beej-c",
+      "title": "Guide to C Programming",
+      "author": "Brian Hall",
+      "url": "https://beej.us/guide/bgc/",
+      "version": "Current official online HTML route as checked on 2026-10-13; no numbered edition/version appears in the foreword. Its copyright notice states 2021.",
+      "accessed_on": "2026-10-13",
+      "license_evidence_url": "https://beej.us/guide/bgc/html/split/foreword.html#copyright-and-distribution",
+      "redistribution": "link-only",
+      "status": "reviewed",
+      "notes": "Section 1.8 states prose is CC BY-NC-ND 3.0, with a narrow translation exception; C code presented in the guide is separately granted to the public domain. The foreword says the audience already has programming knowledge. Link to the guide; do not adapt prose or bundle its code in this original pilot."
+    },
+    {
+      "id": "modern-c",
+      "title": "Modern C",
+      "author": "Jens Gustedt",
+      "url": "https://gustedt.gitlabpages.inria.fr/modern-c/",
+      "version": "Public C23 text latest-version date on the author page: 2024-10-15. Author page says C23 print/eBook third edition became available 2025-09-01 and has the same contents, with possible page-number/layout differences.",
+      "accessed_on": "2026-10-13",
+      "license_evidence_url": "https://gustedt.gitlabpages.inria.fr/modern-c/",
+      "redistribution": "link-only",
+      "status": "reviewed",
+      "notes": "Sections 2.1, 3, 5.1, and 5.2: prose CC BY-NC-ND 4.0; provided code examples separately MIT-licensed with notice-preservation conditions. Link-only for this pilot; do not adapt prose. If an independently useful code example is ever bundled, record its exact source path and retain the MIT notice."
+    }
+  ]
+}

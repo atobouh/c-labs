@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "exercise-offset",
+  "kind": "exercise",
+  "objective_ids": ["obj-array", "obj-index"],
+  "prompt": "The array samples contains [12, 18, 9, 21, 15, 24]. Which element object does samples + 3 point to? Give both its zero-based index and its stored value.",
+  "model": {
+    "array_name": "samples",
+    "values": [12, 18, 9, 21, 15, 24],
+    "valid_index_range": [0, 5],
+    "pointer_offset_elements": 3
+  },
+  "answer": {
+    "type": "array_element",
+    "value": {"index": 3, "value": 21}
+  },
+  "error_categories": [
+    {"id": "one_based_index", "when": {"all": [{"path":"index","op":"eq","value":2}]}},
+    {"id": "offset_as_value", "when": {"all": [{"path":"index","op":"eq","value":3},{"path":"value","op":"eq","value":3}]}},
+    {"id": "wrong_element_value", "when": {"all": [{"path":"index","op":"eq","value":3},{"path":"value","op":"neq","value":21}]}},
+    {"id": "other", "when": {"otherwise":true}}
+  ],
+  "feedback": {
+    "correct": "Offset 3 selects index 3, the fourth element. That object currently holds 21.",
+    "incorrect": {
+      "one_based_index": "Indexing starts at zero. Offset 3 selects the fourth element, not the third.",
+      "offset_as_value": "The offset selects an element; it is not the value stored in that element.",
+      "wrong_element_value": "You selected the right position. Read the value stored at that index from the model.",
+      "other": "Trace the element offset from index 0, then read that element's stored value."
+    }
+  },
+  "hints": [
+    {"level": 1, "text": "Start counting element positions at index 0."},
+    {"level": 2, "text": "Move three element positions from the first element, then inspect that slot."},
+    {"level": 3, "text": "The selected index equals the pointer offset. Use the array model to look up its value."}
+  ],
+  "review_tags": ["obj-array", "obj-index", "zero-based-index", "element-versus-value"],
+  "citations": [
+    {"source_id": "wg14-c17", "locator": "6.5.6 paragraphs 8-9", "claim": "Adding an integer to an array element pointer advances in elements within the array range."},
+    {"source_id": "wg14-c17", "locator": "6.5.2.1 paragraph 2", "claim": "Array subscripting selects through pointer addition and indirection."}
+  ]
+}

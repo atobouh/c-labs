@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "animation-traversal",
+  "kind": "animation",
+  "objective_ids": ["obj-index"],
+  "model_type": "conceptual",
+  "title": "Bounded traversal",
+  "code": "#include <stddef.h>\n\nint main(void)\n{\n    const int samples[] = {12, 18, 9, 21, 15, 24};\n    const size_t count = sizeof samples / sizeof samples[0];\n    size_t i = 0;\n    int total = 0;\n    while (i < count) {\n        total += samples[i];\n        ++i;\n    }\n    return total == 99 ? 0 : 1;\n}",
+  "step_semantics": "Each after-index state represents one true loop condition, one selected element and addition, then the increment before the next state. The opening and terminal states show the initial and final condition.",
+  "initial_state_id": "before-first-element",
+  "reset_state_id": "before-first-element",
+  "controls": ["step_forward", "step_back", "pause", "reset"],
+  "keyboard_actions": {"step_forward":"ArrowRight","step_back":"ArrowLeft","pause":"Space","reset":"Home"},
+  "auto_play": false,
+  "pause_behavior": "Pause keeps the current state selected; this model never advances automatically.",
+  "accessible_summary": "The trace visits indices 0 through 5 in order. Running totals are 12, 30, 39, 60, 75, and 99. The final condition is false at i = 6; no seventh element is selected.",
+  "reduced_motion_summary": "Show the same ordered states and captions without animated movement.",
+  "citations": [
+    {"source_id": "wg14-c17", "locator": "6.5.2.1 paragraph 2", "claim": "The selected array element is evaluated through indexing as pointer addition and indirection."},
+    {"source_id": "wg14-c17", "locator": "6.5.6 paragraphs 8-9", "claim": "The traversal must remain within the six-element array and stop at its one-past boundary."}
+  ],
+  "states": [
+    {"id":"before-first-element","source_line":9,"caption":"The condition 0 < 6 is true. No element has been added yet.","variables":{"i":0,"condition":"0 < 6: true","selected_value":null,"total":0},"selected_indices":[],"evaluation_status":"ready"},
+    {"id":"after-index-0","source_line":10,"caption":"Index 0 selects 12. Add it once; the loop then advances to i = 1.","variables":{"i":0,"condition":"0 < 6: true","selected_value":12,"total":12},"selected_indices":[0],"evaluation_status":"ready"},
+    {"id":"after-index-1","source_line":10,"caption":"Index 1 selects 18. The running total is now 30.","variables":{"i":1,"condition":"1 < 6: true","selected_value":18,"total":30},"selected_indices":[1],"evaluation_status":"ready"},
+    {"id":"after-index-2","source_line":10,"caption":"Index 2 selects 9. The running total is now 39.","variables":{"i":2,"condition":"2 < 6: true","selected_value":9,"total":39},"selected_indices":[2],"evaluation_status":"ready"},
+    {"id":"after-index-3","source_line":10,"caption":"Index 3 selects 21. The running total is now 60.","variables":{"i":3,"condition":"3 < 6: true","selected_value":21,"total":60},"selected_indices":[3],"evaluation_status":"ready"},
+    {"id":"after-index-4","source_line":10,"caption":"Index 4 selects 15. The running total is now 75.","variables":{"i":4,"condition":"4 < 6: true","selected_value":15,"total":75},"selected_indices":[4],"evaluation_status":"ready"},
+    {"id":"after-index-5","source_line":10,"caption":"Index 5 selects 24. The running total is now 99.","variables":{"i":5,"condition":"5 < 6: true","selected_value":24,"total":99},"selected_indices":[5],"evaluation_status":"ready"},
+    {"id":"loop-complete","source_line":9,"caption":"After incrementing, i is 6. The condition is false, so the one-past position is not read.","variables":{"i":6,"condition":"6 < 6: false","selected_value":null,"total":99},"selected_indices":[],"evaluation_status":"complete"}
+  ]
+}

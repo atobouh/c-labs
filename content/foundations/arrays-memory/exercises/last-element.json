@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "exercise-last",
+  "kind": "exercise",
+  "objective_ids": ["obj-bounds"],
+  "prompt": "A nonempty array has six elements. What is the greatest valid zero-based index? Answer with one integer.",
+  "model": {
+    "array_name": "samples",
+    "element_count": 6,
+    "valid_index_range": [0, 5],
+    "rule": "last_index = count - 1 when count is greater than zero"
+  },
+  "answer": {"type": "index", "value": 5},
+  "error_categories": [
+    {"id": "count_as_index", "when": {"all": [{"path":"value","op":"eq","value":6}]}},
+    {"id": "one_too_early", "when": {"all": [{"path":"value","op":"eq","value":4}]}},
+    {"id": "other", "when": {"otherwise":true}}
+  ],
+  "feedback": {
+    "correct": "With six elements, indices run from 0 through 5.",
+    "incorrect": {
+      "count_as_index": "Count is the number of elements. Because indexing starts at zero, the count itself is after the last element.",
+      "one_too_early": "The first element is index 0. Count six positions, including index 0, before choosing the last.",
+      "other": "For a nonempty range, subtract one from the element count to get the final index."
+    }
+  },
+  "hints": [
+    {"level": 1, "text": "Write the indices from the first element onward, beginning at zero."},
+    {"level": 2, "text": "Six elements occupy six positions, but the first position is numbered zero."},
+    {"level": 3, "text": "For a nonempty array, calculate count - 1."}
+  ],
+  "review_tags": ["obj-bounds", "zero-based-index", "count-versus-last-index"],
+  "citations": [
+    {"source_id": "wg14-c17", "locator": "6.5.2.1 paragraph 2", "claim": "Subscript indexing is based on pointer addition from the first array element."},
+    {"source_id": "wg14-c17", "locator": "6.5.6 paragraphs 8-9", "claim": "Array pointer arithmetic is limited to the array and its one-past position."}
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": "lesson-index-offset",
+  "kind": "lesson",
+  "title": "An index is an offset",
+  "objective_ids": ["obj-index"],
+  "body_path": "content/foundations/arrays-memory/lessons/index-offset.md",
+  "prerequisite_ids": ["lesson-objects-side-by-side"],
+  "example_paths": ["content/foundations/arrays-memory/lessons/examples/index-offset.c"],
+  "checkpoint_ids": ["checkpoint-trace-total"],
+  "citations": [
+    {
+      "source_id": "wg14-c17",
+      "locator": "6.5.2.1 paragraph 2",
+      "claim": "The array subscript expression is defined using pointer addition and indirection."
+    },
+    {
+      "source_id": "wg14-c17",
+      "locator": "6.5.6 paragraphs 8-9",
+      "claim": "Pointer addition advances by elements of the pointed-to type and is restricted to the array range and its one-past position."
+    }
+  ]
+}

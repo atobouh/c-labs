@@ -1,0 +1,15 @@
+{
+  "overflow": [],
+  "errors": [],
+  "layoutCases": 30,
+  "offline": {
+    "title": "Your courses",
+    "font": true,
+    "resources": [],
+    "chapter": "Arrays & memory"
+  },
+  "targetedLabRecheck": {
+    "client": 390,
+    "scroll": 390
+  }
+}

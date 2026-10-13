@@ -1,0 +1,426 @@
+{
+  "schema_version": 1,
+  "records": [
+    {
+      "item_id": "lesson-objects-side-by-side",
+      "artifact_sha256": "058c784b787304f0d683c8b227dd284102da5646499967f3fc235d3e2349af3d",
+      "reviewed": true,
+      "results": [
+        {
+          "check": "citation-review",
+          "command_or_method": "Manual claim-to-clause review using foundation/source-review.md and the cited WG14 N2176 locators",
+          "observed": "Each C semantics claim is linked to the reviewed clause; no copied standard prose. The official PDF text-extraction limitation remains disclosed.",
+          "passed": true
+        },
+        {
+          "check": "teaching-review",
+          "command_or_method": "Manual lesson sequence and misconception review against handoff/PILOT.md and handoff/CONTENT-CONTRACT.md",
+          "observed": "Four lessons cover the assigned objective in sequence, distinguish conceptual views from addresses, handle empty ranges before subtraction, and never assign a result to invalid dereference.",
+          "passed": true
+        },
+        {
+          "check": "example-verification",
+          "command_or_method": "py -3 tools/verify_lesson_examples.py",
+          "observed": "GCC 13.2.0 (MinGW-w64 x86_64-ucrt-posix-seh); all four complete C17 examples compiled without warnings and matched their expected output. Temporary binaries were removed.",
+          "passed": true
+        }
+      ],
+      "supporting_artifact_sha256": {
+        "content/foundations/arrays-memory/lessons/objects-side-by-side.json": "19614591aad737feff9d285d33622584e0132210812752982dfba3bfef5752aa",
+        "content/foundations/arrays-memory/lessons/examples/objects-side-by-side.c": "13bc498d07585a17757232e3273245ef99927688f90bd09e567e7894fbdd7119"
+      }
+    },
+    {
+      "item_id": "lesson-index-offset",
+      "artifact_sha256": "7dd70ed65fee45514c9238f7fca50d9c482f97bcf663f5e135bf7dbecf5a58db",
+      "reviewed": true,
+      "results": [
+        {
+          "check": "citation-review",
+          "command_or_method": "Manual claim-to-clause review using foundation/source-review.md and the cited WG14 N2176 locators",
+          "observed": "Each C semantics claim is linked to the reviewed clause; no copied standard prose. The official PDF text-extraction limitation remains disclosed.",
+          "passed": true
+        },
+        {
+          "check": "teaching-review",
+          "command_or_method": "Manual lesson sequence and misconception review against handoff/PILOT.md and handoff/CONTENT-CONTRACT.md",
+          "observed": "Four lessons cover the assigned objective in sequence, distinguish conceptual views from addresses, handle empty ranges before subtraction, and never assign a result to invalid dereference.",
+          "passed": true
+        },
+        {
+          "check": "example-verification",
+          "command_or_method": "py -3 tools/verify_lesson_examples.py",
+          "observed": "GCC 13.2.0 (MinGW-w64 x86_64-ucrt-posix-seh); all four complete C17 examples compiled without warnings and matched their expected output. Temporary binaries were removed.",
+          "passed": true
+        }
+      ],
+      "supporting_artifact_sha256": {
+        "content/foundations/arrays-memory/lessons/index-offset.json": "502afc53a5da4193072621af38ebee1aa5b722dd074d6921bdc5cc2049d21039",
+        "content/foundations/arrays-memory/lessons/examples/index-offset.c": "9f7a51f838e10523fee1eb8b514d51def7d47490a4d34793b2569289e71e11fa"
+      }
+    },
+    {
+      "item_id": "lesson-valid-range",
+      "artifact_sha256": "f9085cc650b4a1f08a1010a8f6f1f71730fbe5c2d1ed454a31ce259cf5767539",
+      "reviewed": true,
+      "results": [
+        {
+          "check": "citation-review",
+          "command_or_method": "Manual claim-to-clause review using foundation/source-review.md and the cited WG14 N2176 locators",
+          "observed": "Each C semantics claim is linked to the reviewed clause; no copied standard prose. The official PDF text-extraction limitation remains disclosed.",
+          "passed": true
+        },
+        {
+          "check": "teaching-review",
+          "command_or_method": "Manual lesson sequence and misconception review against handoff/PILOT.md and handoff/CONTENT-CONTRACT.md",
+          "observed": "Four lessons cover the assigned objective in sequence, distinguish conceptual views from addresses, handle empty ranges before subtraction, and never assign a result to invalid dereference.",
+          "passed": true
+        },
+        {
+          "check": "example-verification",
+          "command_or_method": "py -3 tools/verify_lesson_examples.py",
+          "observed": "GCC 13.2.0 (MinGW-w64 x86_64-ucrt-posix-seh); all four complete C17 examples compiled without warnings and matched their expected output. Temporary binaries were removed.",
+          "passed": true
+        }
+      ],
+      "supporting_artifact_sha256": {
+        "content/foundations/arrays-memory/lessons/valid-range.json": "a8309353a44d237290a524bca8458420db0e1d5800c821c74d737232ba01a8f4",
+        "content/foundations/arrays-memory/lessons/examples/valid-range.c": "168ff35c9c2d515fc61b2c5ce1969804bcbfe99b140d675a876edc8f1f07e490"
+      }
+    },
+    {
+      "item_id": "lesson-carry-count",
+      "artifact_sha256": "1e934bea421e69a044d9810fa42982f6fca64f928a116122f6b7657e7c73a06b",
+      "reviewed": true,
+      "results": [
+        {
+          "check": "citation-review",
+          "command_or_method": "Manual claim-to-clause review using foundation/source-review.md and the cited WG14 N2176 locators",
+          "observed": "Each C semantics claim is linked to the reviewed clause; no copied standard prose. The official PDF text-extraction limitation remains disclosed.",
+          "passed": true
+        },
+        {
+          "check": "teaching-review",
+          "command_or_method": "Manual lesson sequence and misconception review against handoff/PILOT.md and handoff/CONTENT-CONTRACT.md",
+          "observed": "Four lessons cover the assigned objective in sequence, distinguish conceptual views from addresses, handle empty ranges before subtraction, and never assign a result to invalid dereference.",
+          "passed": true
+        },
+        {
+          "check": "example-verification",
+          "command_or_method": "py -3 tools/verify_lesson_examples.py",
+          "observed": "GCC 13.2.0 (MinGW-w64 x86_64-ucrt-posix-seh); all four complete C17 examples compiled without warnings and matched their expected output. Temporary binaries were removed.",
+          "passed": true
+        }
+      ],
+      "supporting_artifact_sha256": {
+        "content/foundations/arrays-memory/lessons/carry-count.json": "fe104251692ef4ad5c768edac156a94bf6877c49fbc4e3cc15e1f50168b95489",
+        "content/foundations/arrays-memory/lessons/examples/carry-count/main.c": "c98194ae3b40ab3333728ef31028c09162e1474cd168fff7feeaa5f53a51bd93",
+        "content/foundations/arrays-memory/lessons/examples/carry-count/sum_values.c": "03fcfd04971abc029c45c46a810b102868acf07f4069ac10f53f33a220eee9b5",
+        "content/foundations/arrays-memory/lessons/examples/carry-count/sum_values.h": "7173b2716828b82265a6269610bfe64f81178ab823eece6f881960a08f5ec828"
+      }
+    },
+    {
+      "item_id": "lexicon-array-memory",
+      "artifact_sha256": "742d2c0a2b64e6297b027ec666ca8b89935144934ae4b23fc5a884c6abebbdae",
+      "reviewed": true,
+      "results": [
+        {
+          "check": "citation-review",
+          "command_or_method": "Manual claim-to-clause and source-ID review of all eight lexicon entries",
+          "observed": "Each C semantics definition cites a reviewed WG14 locator; definitions remain original and no citations are placeholders.",
+          "passed": true
+        },
+        {
+          "check": "definition-review",
+          "command_or_method": "Manual term, example, misconception, objective, and related-ID audit; Python JSON/link check",
+          "observed": "All eight required terms are present; each entry has a definition, example, misconception and citation; all related IDs resolve.",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "item_id": "exercise-offset",
+      "artifact_sha256": "66a030a4b00ae30035d6fd11925ec13ab3188955a4071a661a45935c18f89ef4",
+      "reviewed": true,
+      "results": [
+        {
+          "check": "answer-model-tests",
+          "command_or_method": "py -3 tools/test_learning_models.py",
+          "observed": "All six model tests passed, including typed answer equality, declared misconception routing, and rejection of a correct index with an incorrect value or type.",
+          "passed": true
+        },
+        {
+          "check": "feedback-review",
+          "command_or_method": "Manual review of the three exercise prompts, ordered error categories, feedback, and hint ladders",
+          "observed": "Each declared error category has matching feedback; hints move from a nudge to the governing rule; answers compare the full typed value.",
+          "passed": true
+        },
+        {
+          "check": "citation-review",
+          "command_or_method": "Manual citation-ID and exact-locator review against foundation/source-review.md",
+          "observed": "C17 index, pointer arithmetic, and one-past claims cite reviewed WG14 clauses; exercise claims are original and do not reproduce standard text.",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "item_id": "exercise-last",
+      "artifact_sha256": "b8f8c888327b8ef8962c2f7e41730ee334d82c95974fc7fa4b77d4986eefc3ef",
+      "reviewed": true,
+      "results": [
+        {
+          "check": "answer-model-tests",
+          "command_or_method": "py -3 tools/test_learning_models.py",
+          "observed": "All six model tests passed, including typed answer equality, declared misconception routing, and rejection of a correct index with an incorrect value or type.",
+          "passed": true
+        },
+        {
+          "check": "feedback-review",
+          "command_or_method": "Manual review of the three exercise prompts, ordered error categories, feedback, and hint ladders",
+          "observed": "Each declared error category has matching feedback; hints move from a nudge to the governing rule; answers compare the full typed value.",
+          "passed": true
+        },
+        {
+          "check": "citation-review",
+          "command_or_method": "Manual citation-ID and exact-locator review against foundation/source-review.md",
+          "observed": "C17 index, pointer arithmetic, and one-past claims cite reviewed WG14 clauses; exercise claims are original and do not reproduce standard text.",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "item_id": "exercise-one-past",
+      "artifact_sha256": "65316a5177aaaa19e382f7330f8fa138486f5146de0dbc5e9077bff1ae2ab963",
+      "reviewed": true,
+      "results": [
+        {
+          "check": "answer-model-tests",
+          "command_or_method": "py -3 tools/test_learning_models.py",
+          "observed": "All six model tests passed, including typed answer equality, declared misconception routing, and rejection of a correct index with an incorrect value or type.",
+          "passed": true
+        },
+        {
+          "check": "feedback-review",
+          "command_or_method": "Manual review of the three exercise prompts, ordered error categories, feedback, and hint ladders",
+          "observed": "Each declared error category has matching feedback; hints move from a nudge to the governing rule; answers compare the full typed value.",
+          "passed": true
+        },
+        {
+          "check": "citation-review",
+          "command_or_method": "Manual citation-ID and exact-locator review against foundation/source-review.md",
+          "observed": "C17 index, pointer arithmetic, and one-past claims cite reviewed WG14 clauses; exercise claims are original and do not reproduce standard text.",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "item_id": "animation-traversal",
+      "artifact_sha256": "1196e9c4782530182f1a4f9cc07c7eb0740e9308d70a2c2b54bb6d39fa79a9ac",
+      "reviewed": true,
+      "results": [
+        {
+          "check": "state-model-tests",
+          "command_or_method": "py -3 tools/test_learning_models.py",
+          "observed": "All six model tests passed: eight ordered traversal states total to 99, source lines resolve, stepping reverses/resets, and the boundary model ends before its invalid dereference.",
+          "passed": true
+        },
+        {
+          "check": "accessibility-review",
+          "command_or_method": "Manual review of animation model states and controls",
+          "observed": "Both models define forward/back/pause/reset keys, captions, static summaries, reduced-motion behavior, and no automatic playback. The invalid state has no fabricated value. This reviews content models only; no UI accessibility is claimed.",
+          "passed": true
+        },
+        {
+          "check": "citation-review",
+          "command_or_method": "Manual citation-ID and exact-locator review against foundation/source-review.md",
+          "observed": "Array indexing and one-past claims cite reviewed WG14 clauses. The boundary source is explicitly model-only and never executed.",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "item_id": "animation-boundary",
+      "artifact_sha256": "17353e23e5eb3a9c2102251d651756991acc21cf0fc2f62dfcb7650c5b630d0c",
+      "reviewed": true,
+      "results": [
+        {
+          "check": "state-model-tests",
+          "command_or_method": "py -3 tools/test_learning_models.py",
+          "observed": "All six model tests passed: eight ordered traversal states total to 99, source lines resolve, stepping reverses/resets, and the boundary model ends before its invalid dereference.",
+          "passed": true
+        },
+        {
+          "check": "accessibility-review",
+          "command_or_method": "Manual review of animation model states and controls",
+          "observed": "Both models define forward/back/pause/reset keys, captions, static summaries, reduced-motion behavior, and no automatic playback. The invalid state has no fabricated value. This reviews content models only; no UI accessibility is claimed.",
+          "passed": true
+        },
+        {
+          "check": "citation-review",
+          "command_or_method": "Manual citation-ID and exact-locator review against foundation/source-review.md",
+          "observed": "Array indexing and one-past claims cite reviewed WG14 clauses. The boundary source is explicitly model-only and never executed.",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "item_id": "lab-trace-sum",
+      "artifact_sha256": "0075e705dc922e09d46d921a47d3c2a0e0820251d5e6122763faa060deb56b9b",
+      "package_files": {
+        "content/foundations/arrays-memory/labs/trace-sum/brief.md": "eb1443ab71c90a22fc6fe2c1f1ad5e0da5e6533103039b12e39c51f553fbc403",
+        "content/foundations/arrays-memory/labs/trace-sum/lab.json": "0075e705dc922e09d46d921a47d3c2a0e0820251d5e6122763faa060deb56b9b",
+        "content/foundations/arrays-memory/labs/trace-sum/fixtures/fixtures.h": "d179a1c64f8a7312bb3c3baf36d999f10cc7695176d2feedb03a560bafaaeef9",
+        "content/foundations/arrays-memory/labs/trace-sum/include/sum_readings.h": "c9a88e65118b2bdd916a7a55d0808048f518c7778b137f83e43ad1ab2a9e88a2",
+        "content/foundations/arrays-memory/labs/trace-sum/mutants/hardcoded-sample.c": "dd550bbc6bfeaed1d4d79b867a4d7071d25b010d59d47102a2c15311bb93f744",
+        "content/foundations/arrays-memory/labs/trace-sum/mutants/skip-last.c": "d261e7c32718ec16002c5c5c095ae7b23fcbed1b79667d2eea106bac9b1f983f",
+        "content/foundations/arrays-memory/labs/trace-sum/mutants/stale-empty-output.c": "6fb66f3ebfc795b3c6556c0abee74c50bde0b01fef6c4d269738f2ee5bcde584",
+        "content/foundations/arrays-memory/labs/trace-sum/solutions/sum_readings.c": "21ff4f78fb2b923271036c30e857d7eb07fb1dd0c9d863f8816a424f88dee8ce",
+        "content/foundations/arrays-memory/labs/trace-sum/starter/sum_readings.c": "a823b646b6cd78fd10786a4b42287488a56722f7e8c651c06c25d8d29efc9b68",
+        "content/foundations/arrays-memory/labs/trace-sum/tests/test_driver.c": "1f96ec1bd921a98c20e7cd5e99000c12d1c6400e606c6c185607288b3308e84b"
+      },
+      "reviewed": true,
+      "results": [
+        {
+          "check": "compile-run-fixtures",
+          "command_or_method": "py -3 tools/verify_labs.py --compiler gcc",
+          "observed": "GCC 13.2.0 MinGW-w64; all 10 reference assertion checks passed; starter compiled cleanly and failed its named expected checks.",
+          "passed": true
+        },
+        {
+          "check": "wrong-solution-tests",
+          "command_or_method": "py -3 tools/verify_labs.py --compiler gcc",
+          "observed": "hardcoded-sample, skip-last, and stale-empty-output mutants all failed their declared checks.",
+          "passed": true
+        },
+        {
+          "check": "package-review",
+          "command_or_method": "Manual review of brief, API, fixture safety, hidden solution paths, compiler bounds, and package file list",
+          "observed": "All paths are package-relative, instructor solutions and mutants are excluded from starter_files, and check IDs map to the structured harness. Authoring verification runs only fixed repository sources and is not a sandbox.",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "item_id": "lab-repair-boundary",
+      "artifact_sha256": "8c6e3a608eed0bd18a33f71a3d1eb5e191cb0a5066279a82b8b6378b1b840b48",
+      "package_files": {
+        "content/foundations/arrays-memory/labs/repair-boundary/brief.md": "c51d3685007ddcb310b2827bfc5066489b644eea1c7a683c2ed26104b89a049f",
+        "content/foundations/arrays-memory/labs/repair-boundary/lab.json": "8c6e3a608eed0bd18a33f71a3d1eb5e191cb0a5066279a82b8b6378b1b840b48",
+        "content/foundations/arrays-memory/labs/repair-boundary/fixtures/fixtures.h": "f284e657cc789140d4f2988ee0fb0ae8b5dce7297eb50ddc750265eb82a882dd",
+        "content/foundations/arrays-memory/labs/repair-boundary/include/sum_readings.h": "c9a88e65118b2bdd916a7a55d0808048f518c7778b137f83e43ad1ab2a9e88a2",
+        "content/foundations/arrays-memory/labs/repair-boundary/mutants/inclusive-end.c": "cb2b0c38855526e0d79d96ae512c4c7188c57c44b75093214494df5501ba0eba",
+        "content/foundations/arrays-memory/labs/repair-boundary/mutants/skip-last.c": "35e18551ee365b16c2bb23b8868a0c9030351ecf4748151660dbf287a9c93cd6",
+        "content/foundations/arrays-memory/labs/repair-boundary/solutions/sum_readings.c": "701d430c6aec498ab663bfce82ea9961a513c8f09ff3f0466682976a3a2063cf",
+        "content/foundations/arrays-memory/labs/repair-boundary/starter/sum_readings.c": "23cad1b53defc10c27a3b33a3150c7ad115140a0554754879542cf78d2434a13",
+        "content/foundations/arrays-memory/labs/repair-boundary/tests/test_driver.c": "7120bc877e0d3b60b6f1575cb74b382b51f83666d09891329051749429f68594",
+        "content/foundations/arrays-memory/labs/repair-boundary/tests/test_exact_size_boundary.c": "fa183825792ab8aecf862500a2be3825f63d001688a6df4c6031b78a47173e91"
+      },
+      "reviewed": true,
+      "results": [
+        {
+          "check": "compile-run-fixtures",
+          "command_or_method": "py -3 tools/verify_labs.py --compiler gcc",
+          "observed": "GCC 13.2.0 MinGW-w64; all 10 padded-fixture reference checks passed; inclusive-end and skip-last mutants were rejected. Optional ASan negative check is unavailable because the target linker cannot find -lasan; no sanitizer pass is claimed.",
+          "passed": true
+        },
+        {
+          "check": "wrong-solution-tests",
+          "command_or_method": "py -3 tools/verify_labs.py --compiler gcc",
+          "observed": "inclusive-end and skip-last mutants both failed their declared sentinel/bounds checks without relying on undefined behavior.",
+          "passed": true
+        },
+        {
+          "check": "package-review",
+          "command_or_method": "Manual review of brief, API, fixture safety, hidden solution paths, compiler bounds, and package file list",
+          "observed": "All paths are package-relative, instructor solutions and mutants are excluded from starter_files, and check IDs map to the structured harness. Authoring verification runs only fixed repository sources and is not a sandbox.",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "item_id": "lab-count-api",
+      "artifact_sha256": "93bd94014c11b2fa74dbf8d877a509156626d9507deed9782747d3cda2c969ba",
+      "package_files": {
+        "content/foundations/arrays-memory/labs/count-api/brief.md": "fdef4b2a3d453b81754ab44ea392f79026c4a3bd01d71ff684f8ac0db66b00e4",
+        "content/foundations/arrays-memory/labs/count-api/lab.json": "93bd94014c11b2fa74dbf8d877a509156626d9507deed9782747d3cda2c969ba",
+        "content/foundations/arrays-memory/labs/count-api/fixtures/fixtures.h": "3f91c02dbbf688a9d7c95ef2bc7b3a361582d9c15353ccb546d5244f99bb3dda",
+        "content/foundations/arrays-memory/labs/count-api/include/sensor_analysis.h": "5240423c2ccd3797c98f4d955ac47becec562e07514e066727000a4382419731",
+        "content/foundations/arrays-memory/labs/count-api/mutants/hardcoded-sample.c": "ed37197f693251a762365c443ee75d5fca0049f9480941883600fd000d019e52",
+        "content/foundations/arrays-memory/labs/count-api/mutants/skip-last.c": "4567255fa6363f0d4e9d0a00a4841809281917638a125b2719355355d4ae71f0",
+        "content/foundations/arrays-memory/labs/count-api/mutants/wrong-empty-status.c": "c441ec4271e8c3bc4e45c0f1bc997102e5b58e22e91578acceafdea186b96d2c",
+        "content/foundations/arrays-memory/labs/count-api/mutants/wrong-mean-denominator.c": "1c6d4db68a53f7153aff28020152c422c38718431b0d55f9a08f5db3294d0193",
+        "content/foundations/arrays-memory/labs/count-api/solutions/sensor_analysis.c": "35c3dcdd6b23c7e166a904519ea809d048799492531b3fb773808046d83135ee",
+        "content/foundations/arrays-memory/labs/count-api/starter/sensor_analysis.c": "e02fed84e756f268c9901d2c637d5f668ef493550aa56997380108ed4a425b93",
+        "content/foundations/arrays-memory/labs/count-api/tests/test_driver.c": "95fb67085308bf89fa16b21efbfe85e6081ba2a4c308bc51af091d51536f196a"
+      },
+      "reviewed": true,
+      "results": [
+        {
+          "check": "compile-run-fixtures",
+          "command_or_method": "py -3 tools/verify_labs.py --compiler gcc",
+          "observed": "GCC 13.2.0 MinGW-w64; all 13 analysis API checks passed, including empty, error-zeroing, capacity, repeated values, and fractional mean; starter compiled cleanly and failed named checks.",
+          "passed": true
+        },
+        {
+          "check": "wrong-solution-tests",
+          "command_or_method": "py -3 tools/verify_labs.py --compiler gcc",
+          "observed": "hardcoded-sample, wrong-empty-status, wrong-mean-denominator, and skip-last mutants all failed their declared checks.",
+          "passed": true
+        },
+        {
+          "check": "package-review",
+          "command_or_method": "Manual review of brief, API, fixture safety, hidden solution paths, compiler bounds, and package file list",
+          "observed": "All paths are package-relative, instructor solutions and mutants are excluded from starter_files, and check IDs map to the structured harness. Authoring verification runs only fixed repository sources and is not a sandbox.",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "item_id": "project-sensor",
+      "artifact_sha256": "b4f5d46f60a6330bd30d8f10d3af66acf07dc8192eb66a77105b2dbb4ede7110",
+      "package_files": {
+        "content/foundations/arrays-memory/project/api.md": "f6fd323b04a0564ce8fcc898289c7522fae3a6e9f903422cae08ea0769e26f89",
+        "content/foundations/arrays-memory/project/brief.md": "357762c5f8d52d4863bff3bb9e55a27c74bcbf02d7661102466d49f22ec7e26b",
+        "content/foundations/arrays-memory/project/fixtures/fixtures.h": "7de878672a694166753de5235682c4d28a113165988a44f4ed78aecdbcd7eb9e",
+        "content/foundations/arrays-memory/project/include/sensor_analysis.h": "5240423c2ccd3797c98f4d955ac47becec562e07514e066727000a4382419731",
+        "content/foundations/arrays-memory/project/include/sensor_report.h": "57b05b756cc4e255d0023411b186e9ac8b1f2802338af44ea56be6f031764639",
+        "content/foundations/arrays-memory/project/mutants/empty-report-zeros.c": "3b0c83dfd8b006a7f669850d50cde99f0b1bf0f2b5741ae092c73a13ab20c5da",
+        "content/foundations/arrays-memory/project/mutants/hardcoded-sample-analysis.c": "2a2638750d178e9cfd5fe7f498d153ee95febe1205fd54a1c460bc3177bd9ee2",
+        "content/foundations/arrays-memory/project/mutants/inclusive-end-analysis.c": "3b5a7af39508841af46047d9bd733782fcdd75ef5549d7e5418294751eff099a",
+        "content/foundations/arrays-memory/project/mutants/skip-first-analysis.c": "7e2b74c78b0dc3c3ace3eb42384849f3d00cafae3cf890b36663354dd4321e3e",
+        "content/foundations/arrays-memory/project/mutants/skip-last-analysis.c": "d656344d08dd1351b88580233d80ecbf14bd3078be50b545109e905907ee7311",
+        "content/foundations/arrays-memory/project/mutants/wrong-empty-status-analysis.c": "d169bad58ff32948e7c1d1a2994340107e20fda2e69ff780c11ca25fd4160afe",
+        "content/foundations/arrays-memory/project/mutants/wrong-mean-denominator-analysis.c": "a192369f25821525451841ad108a5ae49736fec99780841991316ad9a51e87aa",
+        "content/foundations/arrays-memory/project/project.json": "b4f5d46f60a6330bd30d8f10d3af66acf07dc8192eb66a77105b2dbb4ede7110",
+        "content/foundations/arrays-memory/project/solutions/sensor_analysis.c": "35c3dcdd6b23c7e166a904519ea809d048799492531b3fb773808046d83135ee",
+        "content/foundations/arrays-memory/project/solutions/sensor_report.c": "9341b4eb284cc0d61a5793db747a69cdd8131af49447e5ea5f99e4635964a41e",
+        "content/foundations/arrays-memory/project/starter/sensor_analysis.c": "e02fed84e756f268c9901d2c637d5f668ef493550aa56997380108ed4a425b93",
+        "content/foundations/arrays-memory/project/starter/sensor_report.c": "c47340714cbca9792750161ef766135359996f591c9977057d6204b0197973eb",
+        "content/foundations/arrays-memory/project/tests/adapter.c": "b83cff08b023f23159fb4a4d9e464a1a7f609037f71e1c27651c087f1c285769",
+        "content/foundations/arrays-memory/project/tests/test_driver.c": "9aca0d941e09b2d4746c15d401c770b2b303d5c6b8c87f23b777fb68a7d2627e",
+        "content/foundations/arrays-memory/project/tests/test_null_empty.c": "6c9c0de6c2ba018accebf88e14e984f53c507ca3b12631bfd2960ca54dc0aa50"
+      },
+      "reviewed": true,
+      "results": [
+        {
+          "check": "compile-run-fixtures",
+          "command_or_method": "py -3 tools/verify_project.py --compiler gcc",
+          "observed": "GCC 13.2.0 MinGW-w64 x86_64-ucrt-posix-seh; reference solution compiled without warnings and passed 43 analysis, report-write, and JSON-output checks. The supplied sample adapter compiled and emitted its expected report independently; the reference-only (NULL, 0) test passed. Temporary executables were removed.",
+          "passed": true
+        },
+        {
+          "check": "wrong-solution-tests",
+          "command_or_method": "py -3 tools/verify_project.py --compiler gcc",
+          "observed": "The incomplete starter failed its declared analyzer/report checks. All seven bundled variants were rejected: hardcoded sample, wrong empty status, wrong mean denominator, inclusive end, skip first, skip last, and zero-valued empty report. The sentinel mutation is rejected deterministically with an accessible in-array element; no undefined-behavior crash is used.",
+          "passed": true
+        },
+        {
+          "check": "rubric-coverage-review",
+          "command_or_method": "Manifest coverage validation in tools/verify_project.py plus manual review against foundation/pilot.json, project/api.md, brief.md, and the rubric",
+          "observed": "All four pilot objectives (array traversal, indexing, bounds, and explicit count) are covered by the project rubric. Automated rows reference valid checks; the learner explanation is explicitly self-review. The project unlock target is foundations-strings-input. The contract checks prove listed cases and do not claim exhaustive memory-safety proof.",
+          "passed": true
+        }
+      ]
+    }
+  ]
+}

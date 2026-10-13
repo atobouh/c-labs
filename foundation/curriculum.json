@@ -1,0 +1,286 @@
+{
+  "schema_version": 1,
+  "baseline": "c17",
+  "courses": [
+    {
+      "id": "foundations",
+      "title": "C foundations",
+      "chapters": [
+        {
+          "id": "foundations-build-run",
+          "order": 1,
+          "title": "Build & run",
+          "summary": "Source, compilation, linking, and diagnostics.",
+          "project_title": "Build a multi-file report generator",
+          "status": "outline",
+          "prerequisite_ids": []
+        },
+        {
+          "id": "foundations-values-decisions",
+          "order": 2,
+          "title": "Values & decisions",
+          "summary": "Types, conversions, expressions, and control flow.",
+          "project_title": "Build a unit-conversion engine",
+          "status": "outline",
+          "prerequisite_ids": [
+            "foundations-build-run"
+          ]
+        },
+        {
+          "id": "foundations-functions-lifetime",
+          "order": 3,
+          "title": "Functions & lifetime",
+          "summary": "Arguments, returns, scope, and automatic storage.",
+          "project_title": "Build a rule-based scoring engine",
+          "status": "outline",
+          "prerequisite_ids": [
+            "foundations-values-decisions"
+          ]
+        },
+        {
+          "id": "foundations-arrays-memory",
+          "order": 4,
+          "title": "Arrays & memory",
+          "summary": "Elements, indexing, pointer offsets, and bounds.",
+          "project_title": "Build a sensor-data analyzer",
+          "status": "outline",
+          "prerequisite_ids": [
+            "foundations-functions-lifetime"
+          ]
+        },
+        {
+          "id": "foundations-strings-input",
+          "order": 5,
+          "title": "Strings & input",
+          "summary": "Terminated sequences, capacity, and validated input.",
+          "project_title": "Build a structured log parser",
+          "status": "outline",
+          "prerequisite_ids": [
+            "foundations-arrays-memory"
+          ]
+        },
+        {
+          "id": "foundations-dynamic-memory",
+          "order": 6,
+          "title": "Dynamic memory",
+          "summary": "Allocation, ownership conventions, and cleanup.",
+          "project_title": "Build a resizable record store",
+          "status": "outline",
+          "prerequisite_ids": [
+            "foundations-strings-input"
+          ]
+        },
+        {
+          "id": "foundations-structures-files",
+          "order": 7,
+          "title": "Structures & files",
+          "summary": "Data layout, binary formats, and error handling.",
+          "project_title": "Build a portable archive reader",
+          "status": "outline",
+          "prerequisite_ids": [
+            "foundations-dynamic-memory"
+          ]
+        },
+        {
+          "id": "foundations-bring-together",
+          "order": 8,
+          "title": "Bring it together",
+          "summary": "Combine the language with careful tests and resource bounds.",
+          "project_title": "Build a bounded hex inspector",
+          "status": "outline",
+          "prerequisite_ids": [
+            "foundations-structures-files"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "systems",
+      "title": "Systems in C",
+      "chapters": [
+        {
+          "id": "systems-binary-data",
+          "order": 1,
+          "title": "Binary data",
+          "summary": "Representation, byte order, and validation.",
+          "project_title": "Build a binary record inspector",
+          "status": "outline",
+          "prerequisite_ids": [
+            "foundations-bring-together"
+          ]
+        },
+        {
+          "id": "systems-data-structures",
+          "order": 2,
+          "title": "Data structures",
+          "summary": "Lists, queues, and invariants.",
+          "project_title": "Build a task queue",
+          "status": "outline",
+          "prerequisite_ids": [
+            "systems-binary-data"
+          ]
+        },
+        {
+          "id": "systems-files-streams",
+          "order": 3,
+          "title": "Files & streams",
+          "summary": "Partial input, buffering, and failures.",
+          "project_title": "Build a file-indexing tool",
+          "status": "outline",
+          "prerequisite_ids": [
+            "systems-data-structures"
+          ]
+        },
+        {
+          "id": "systems-processes",
+          "order": 4,
+          "title": "Processes",
+          "summary": "Lifecycle and platform boundaries.",
+          "project_title": "Build a process monitor",
+          "status": "outline",
+          "prerequisite_ids": [
+            "systems-files-streams"
+          ]
+        },
+        {
+          "id": "systems-ipc",
+          "order": 5,
+          "title": "Interprocess communication",
+          "summary": "Pipes and bounded protocols.",
+          "project_title": "Build a worker pipeline",
+          "status": "outline",
+          "prerequisite_ids": [
+            "systems-processes"
+          ]
+        },
+        {
+          "id": "systems-networking",
+          "order": 6,
+          "title": "Networking",
+          "summary": "Sockets, framing, and input validation.",
+          "project_title": "Build a local protocol server",
+          "status": "outline",
+          "prerequisite_ids": [
+            "systems-ipc"
+          ]
+        },
+        {
+          "id": "systems-concurrency",
+          "order": 7,
+          "title": "Concurrency",
+          "summary": "Threads, shared state, and synchronization.",
+          "project_title": "Build a concurrent work processor",
+          "status": "outline",
+          "prerequisite_ids": [
+            "systems-networking"
+          ]
+        },
+        {
+          "id": "systems-systems-capstone",
+          "order": 8,
+          "title": "Systems capstone",
+          "summary": "Combine platform interfaces under tests.",
+          "project_title": "Build a local service monitor",
+          "status": "outline",
+          "prerequisite_ids": [
+            "systems-concurrency"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reliable",
+      "title": "Reliable C",
+      "chapters": [
+        {
+          "id": "reliable-contracts",
+          "order": 1,
+          "title": "Contracts",
+          "summary": "Invariants, preconditions, and error paths.",
+          "project_title": "Build a checked API",
+          "status": "outline",
+          "prerequisite_ids": [
+            "foundations-bring-together"
+          ]
+        },
+        {
+          "id": "reliable-integer-behavior",
+          "order": 2,
+          "title": "Integer behavior",
+          "summary": "Conversions, limits, and overflow.",
+          "project_title": "Build a safe numeric parser",
+          "status": "outline",
+          "prerequisite_ids": [
+            "reliable-contracts"
+          ]
+        },
+        {
+          "id": "reliable-bounds",
+          "order": 3,
+          "title": "Bounds",
+          "summary": "Object ranges and validated access.",
+          "project_title": "Build a bounded packet decoder",
+          "status": "outline",
+          "prerequisite_ids": [
+            "reliable-integer-behavior"
+          ]
+        },
+        {
+          "id": "reliable-lifetime-failures",
+          "order": 4,
+          "title": "Lifetime failures",
+          "summary": "Ownership and dangling references.",
+          "project_title": "Repair a record-store implementation",
+          "status": "outline",
+          "prerequisite_ids": [
+            "reliable-bounds"
+          ]
+        },
+        {
+          "id": "reliable-sanitizer-evidence",
+          "order": 5,
+          "title": "Sanitizer evidence",
+          "summary": "What tools detect and what they miss.",
+          "project_title": "Build a reproducible fault lab",
+          "status": "outline",
+          "prerequisite_ids": [
+            "reliable-lifetime-failures"
+          ]
+        },
+        {
+          "id": "reliable-testing-c",
+          "order": 6,
+          "title": "Testing C",
+          "summary": "Fixtures, edge cases, and failure injection.",
+          "project_title": "Build a parser test harness",
+          "status": "outline",
+          "prerequisite_ids": [
+            "reliable-sanitizer-evidence"
+          ]
+        },
+        {
+          "id": "reliable-secure-interfaces",
+          "order": 7,
+          "title": "Secure interfaces",
+          "summary": "Input validation and resource limits.",
+          "project_title": "Build a hardened import tool",
+          "status": "outline",
+          "prerequisite_ids": [
+            "reliable-testing-c"
+          ]
+        },
+        {
+          "id": "reliable-reliability-capstone",
+          "order": 8,
+          "title": "Reliability capstone",
+          "summary": "Combine contracts, checks, and diagnostics.",
+          "project_title": "Harden a binary inspector",
+          "status": "outline",
+          "prerequisite_ids": [
+            "reliable-secure-interfaces"
+          ]
+        }
+      ]
+    }
+  ]
+}

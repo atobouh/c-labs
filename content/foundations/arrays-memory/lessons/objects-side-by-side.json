@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "id": "lesson-objects-side-by-side",
+  "kind": "lesson",
+  "title": "Objects side by side",
+  "objective_ids": ["obj-array"],
+  "body_path": "content/foundations/arrays-memory/lessons/objects-side-by-side.md",
+  "prerequisite_ids": ["foundations-functions-lifetime"],
+  "example_paths": ["content/foundations/arrays-memory/lessons/examples/objects-side-by-side.c"],
+  "checkpoint_ids": ["checkpoint-element-value"],
+  "citations": [
+    {
+      "source_id": "wg14-c17",
+      "locator": "6.2.5 paragraph 20",
+      "claim": "Elements of an array are contiguous objects; the diagram shows conceptual order rather than actual byte addresses."
+    }
+  ]
+}

@@ -1,0 +1,303 @@
+{
+  "schema_version": 1,
+  "content_revision": 1,
+  "chapter_id": "foundations-arrays-memory",
+  "prerequisite_ids": [
+    "foundations-functions-lifetime"
+  ],
+  "prerequisite_skills": [
+    "compile-and-run-a-c17-program",
+    "use-integer-values-and-arithmetic",
+    "write-conditions-and-bounded-loops",
+    "define-and-call-functions",
+    "pass-parameters-and-use-return-values"
+  ],
+  "objectives": [
+    {
+      "id": "obj-array",
+      "description": "Interpret array elements and conceptual adjacent storage"
+    },
+    {
+      "id": "obj-index",
+      "description": "Trace indexing and element offsets"
+    },
+    {
+      "id": "obj-bounds",
+      "description": "Respect readable element ranges and one-past limits"
+    },
+    {
+      "id": "obj-count",
+      "description": "Honor explicit pointer-plus-count APIs"
+    }
+  ],
+  "coverage": [
+    {
+      "objective_id": "obj-array",
+      "lesson_id": "lesson-objects-side-by-side",
+      "practice_ids": [
+        "exercise-offset"
+      ],
+      "project_id": "project-sensor"
+    },
+    {
+      "objective_id": "obj-index",
+      "lesson_id": "lesson-index-offset",
+      "practice_ids": [
+        "exercise-offset",
+        "animation-traversal",
+        "lab-trace-sum"
+      ],
+      "project_id": "project-sensor"
+    },
+    {
+      "objective_id": "obj-bounds",
+      "lesson_id": "lesson-valid-range",
+      "practice_ids": [
+        "exercise-last",
+        "exercise-one-past",
+        "animation-boundary",
+        "lab-repair-boundary"
+      ],
+      "project_id": "project-sensor"
+    },
+    {
+      "objective_id": "obj-count",
+      "lesson_id": "lesson-carry-count",
+      "practice_ids": [
+        "lab-count-api"
+      ],
+      "project_id": "project-sensor"
+    }
+  ],
+  "items": [
+    {
+      "id": "lesson-objects-side-by-side",
+      "kind": "lesson",
+      "title": "Objects side by side",
+      "objective_ids": [
+        "obj-array"
+      ],
+      "artifact": "content/foundations/arrays-memory/lessons/objects-side-by-side.md",
+      "supporting_artifacts": [
+        "content/foundations/arrays-memory/lessons/objects-side-by-side.json",
+        "content/foundations/arrays-memory/lessons/examples/objects-side-by-side.c"
+      ],
+      "status": "verified",
+      "checks": [
+        "citation-review",
+        "teaching-review",
+        "example-verification"
+      ]
+    },
+    {
+      "id": "lesson-index-offset",
+      "kind": "lesson",
+      "title": "An index is an offset",
+      "objective_ids": [
+        "obj-index"
+      ],
+      "artifact": "content/foundations/arrays-memory/lessons/index-offset.md",
+      "supporting_artifacts": [
+        "content/foundations/arrays-memory/lessons/index-offset.json",
+        "content/foundations/arrays-memory/lessons/examples/index-offset.c"
+      ],
+      "status": "verified",
+      "checks": [
+        "citation-review",
+        "teaching-review",
+        "example-verification"
+      ]
+    },
+    {
+      "id": "lesson-valid-range",
+      "kind": "lesson",
+      "title": "The valid range",
+      "objective_ids": [
+        "obj-bounds"
+      ],
+      "artifact": "content/foundations/arrays-memory/lessons/valid-range.md",
+      "supporting_artifacts": [
+        "content/foundations/arrays-memory/lessons/valid-range.json",
+        "content/foundations/arrays-memory/lessons/examples/valid-range.c"
+      ],
+      "status": "verified",
+      "checks": [
+        "citation-review",
+        "teaching-review",
+        "example-verification"
+      ]
+    },
+    {
+      "id": "lesson-carry-count",
+      "kind": "lesson",
+      "title": "Carry the count",
+      "objective_ids": [
+        "obj-count"
+      ],
+      "artifact": "content/foundations/arrays-memory/lessons/carry-count.md",
+      "supporting_artifacts": [
+        "content/foundations/arrays-memory/lessons/carry-count.json",
+        "content/foundations/arrays-memory/lessons/examples/carry-count/main.c",
+        "content/foundations/arrays-memory/lessons/examples/carry-count/sum_values.c",
+        "content/foundations/arrays-memory/lessons/examples/carry-count/sum_values.h"
+      ],
+      "status": "verified",
+      "checks": [
+        "citation-review",
+        "teaching-review",
+        "example-verification"
+      ]
+    },
+    {
+      "id": "exercise-offset",
+      "kind": "exercise",
+      "title": "Read the offset",
+      "objective_ids": [
+        "obj-array",
+        "obj-index"
+      ],
+      "artifact": "content/foundations/arrays-memory/exercises/offset.json",
+      "status": "verified",
+      "checks": [
+        "answer-model-tests",
+        "feedback-review"
+      ]
+    },
+    {
+      "id": "exercise-last",
+      "kind": "exercise",
+      "title": "Last readable element",
+      "objective_ids": [
+        "obj-bounds"
+      ],
+      "artifact": "content/foundations/arrays-memory/exercises/last-element.json",
+      "status": "verified",
+      "checks": [
+        "answer-model-tests",
+        "feedback-review"
+      ]
+    },
+    {
+      "id": "exercise-one-past",
+      "kind": "exercise",
+      "title": "Boundary versus element",
+      "objective_ids": [
+        "obj-bounds"
+      ],
+      "artifact": "content/foundations/arrays-memory/exercises/one-past.json",
+      "status": "verified",
+      "checks": [
+        "answer-model-tests",
+        "feedback-review"
+      ]
+    },
+    {
+      "id": "animation-traversal",
+      "kind": "animation",
+      "title": "Bounded traversal",
+      "objective_ids": [
+        "obj-index"
+      ],
+      "artifact": "content/foundations/arrays-memory/animations/traversal.json",
+      "status": "verified",
+      "checks": [
+        "state-model-tests",
+        "accessibility-review"
+      ]
+    },
+    {
+      "id": "animation-boundary",
+      "kind": "animation",
+      "title": "Boundary check",
+      "objective_ids": [
+        "obj-bounds"
+      ],
+      "artifact": "content/foundations/arrays-memory/animations/boundary.json",
+      "status": "verified",
+      "checks": [
+        "state-model-tests",
+        "accessibility-review"
+      ]
+    },
+    {
+      "id": "lab-trace-sum",
+      "kind": "lab",
+      "title": "Trace and sum",
+      "objective_ids": [
+        "obj-index"
+      ],
+      "artifact": "content/foundations/arrays-memory/labs/trace-sum/lab.json",
+      "status": "verified",
+      "checks": [
+        "compile-run-fixtures",
+        "wrong-solution-tests",
+        "package-review"
+      ]
+    },
+    {
+      "id": "lab-repair-boundary",
+      "kind": "lab",
+      "title": "Repair a boundary",
+      "objective_ids": [
+        "obj-bounds"
+      ],
+      "artifact": "content/foundations/arrays-memory/labs/repair-boundary/lab.json",
+      "status": "verified",
+      "checks": [
+        "compile-run-fixtures",
+        "wrong-solution-tests",
+        "package-review"
+      ]
+    },
+    {
+      "id": "lab-count-api",
+      "kind": "lab",
+      "title": "Carry a count",
+      "objective_ids": [
+        "obj-count"
+      ],
+      "artifact": "content/foundations/arrays-memory/labs/count-api/lab.json",
+      "status": "verified",
+      "checks": [
+        "compile-run-fixtures",
+        "wrong-solution-tests",
+        "package-review"
+      ]
+    },
+    {
+      "id": "project-sensor",
+      "kind": "project",
+      "title": "Sensor-data analyzer",
+      "objective_ids": [
+        "obj-array",
+        "obj-index",
+        "obj-bounds",
+        "obj-count"
+      ],
+      "artifact": "content/foundations/arrays-memory/project/project.json",
+      "status": "verified",
+      "checks": [
+        "compile-run-fixtures",
+        "wrong-solution-tests",
+        "rubric-coverage-review"
+      ]
+    },
+    {
+      "id": "lexicon-array-memory",
+      "kind": "lexicon",
+      "title": "Array and memory terms",
+      "objective_ids": [
+        "obj-array",
+        "obj-index",
+        "obj-bounds",
+        "obj-count"
+      ],
+      "artifact": "content/foundations/arrays-memory/lexicon.json",
+      "status": "verified",
+      "checks": [
+        "citation-review",
+        "definition-review"
+      ]
+    }
+  ]
+}

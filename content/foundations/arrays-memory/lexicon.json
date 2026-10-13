@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "id": "lexicon-array-memory",
+  "kind": "lexicon",
+  "objective_ids": ["obj-array", "obj-index", "obj-bounds", "obj-count"],
+  "citations": [],
+  "entries": [
+    {
+      "id": "term-array",
+      "term": "Array",
+      "definition": "A contiguous sequence of objects that all have the same element type.",
+      "example": "In int samples[6], the elements are samples[0] through samples[5].",
+      "misconception": "The conceptual row of elements is a display of numeric process addresses.",
+      "related_ids": ["term-element", "term-index", "term-bounds"],
+      "citations": [{"source_id":"wg14-c17","locator":"6.2.5 paragraph 20","claim":"Array elements are contiguous objects."}]
+    },
+    {
+      "id": "term-element",
+      "term": "Element",
+      "definition": "One object in an array, identified by its position; it holds a value of the array's element type.",
+      "example": "samples[3] is the fourth int object in samples.",
+      "misconception": "An element and its current integer value are the same thing.",
+      "related_ids": ["term-array", "term-index"],
+      "citations": [{"source_id":"wg14-c17","locator":"6.2.5 paragraph 20","claim":"An array is a contiguous set of objects with a member object type called the element type."}]
+    },
+    {
+      "id": "term-index",
+      "term": "Index",
+      "definition": "An integer subscript that selects an element by its offset from the first element.",
+      "example": "samples[3] selects the fourth element, when the array has at least four elements.",
+      "misconception": "An index counts bytes or starts at one.",
+      "related_ids": ["term-array", "term-element", "term-pointer", "term-bounds"],
+      "citations": [{"source_id":"wg14-c17","locator":"6.5.2.1 paragraph 2","claim":"Subscript evaluation is defined through pointer addition and indirection."}]
+    },
+    {
+      "id": "term-bounds",
+      "term": "Bounds",
+      "definition": "The permitted range of elements in an array or pointer-plus-count view.",
+      "example": "For six readings, the readable indices are 0 through 5; the project API also caps count at 30.",
+      "misconception": "Extra physical capacity means a function may ignore the count supplied by its caller.",
+      "related_ids": ["term-index", "term-one-past", "term-count"],
+      "citations": [{"source_id":"wg14-c17","locator":"6.5.6 paragraphs 8-9","claim":"C pointer arithmetic in this context is restricted to the array range and the one-past position."}]
+    },
+    {
+      "id": "term-pointer",
+      "term": "Pointer",
+      "definition": "A value that can refer to an object; pointers to array elements can also identify positions within that array.",
+      "example": "For a four-element int array, samples + 2 points to element index 2.",
+      "misconception": "A pointer's numeric representation is the teaching model for an array index.",
+      "related_ids": ["term-index", "term-one-past", "term-count"],
+      "citations": [{"source_id":"wg14-c17","locator":"6.5.6 paragraphs 8-9","claim":"Pointer addition within an array is specified in units of the pointed-to type and is bounded by the array."}]
+    },
+    {
+      "id": "term-one-past",
+      "term": "One-past pointer",
+      "definition": "A pointer to the position immediately after the last element of an array; it can mark the end but cannot be read as an element.",
+      "example": "For int samples[6], samples + 6 may be formed and compared within the allowed rules, but not dereferenced.",
+      "misconception": "The one-past position is a seventh element with an unpredictable value.",
+      "related_ids": ["term-pointer", "term-bounds", "term-index"],
+      "citations": [{"source_id":"wg14-c17","locator":"6.5.6 paragraphs 8-9","claim":"One-past pointer formation is permitted, but evaluation as an element is not."}]
+    },
+    {
+      "id": "term-count",
+      "term": "Count",
+      "definition": "An explicit number of elements that a caller makes available to a pointer-based function.",
+      "example": "sum_values(samples, 6) receives a pointer and the number of readable elements.",
+      "misconception": "A function can recover the original array length from its pointer parameter.",
+      "related_ids": ["term-array-parameter-adjustment", "term-bounds", "term-pointer"],
+      "citations": [{"source_id":"wg14-c17","locator":"6.7.6.3 paragraph 7","claim":"An array parameter is adjusted to a pointer parameter; the count is a separate API value."}]
+    },
+    {
+      "id": "term-array-parameter-adjustment",
+      "term": "Array parameter adjustment",
+      "definition": "The C rule that adjusts an array parameter declaration to a pointer parameter to the element type.",
+      "example": "In int total(const int values[], size_t count), values is adjusted to a pointer parameter.",
+      "misconception": "The brackets in a function parameter preserve the caller's array length.",
+      "related_ids": ["term-count", "term-pointer", "term-array"],
+      "citations": [{"source_id":"wg14-c17","locator":"6.7.6.3 paragraph 7","claim":"The function parameter's array type is adjusted to a pointer type."}]
+    }
+  ]
+}
