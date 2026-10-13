@@ -6,12 +6,12 @@ Updated: 2026-10-13.
 
 - Design direction approved by user; Open Lab scrollbar/focus polish still pending.
 - Approved shell and specimens remain the basis of the desktop app; prior prototype checks are recorded in `QA.md`.
-- R01's Rust/Tauri host, offline catalog, search, lexicon, and learner draft storage are implemented. Compiler integration and actual grading remain unimplemented.
+- R01's Rust/Tauri host, offline catalog, course search, lexicon, and learner draft storage are implemented and verified in the Windows offline release. Compiler integration, interactive lessons/labs, and actual grading remain future tasks.
 - Foundations F01-F06 are complete and the pilot content/evidence release gate passes. The package includes the locked API, four original lessons and compiled examples, lexicon, three diagram exercises, two animation models, three labs, and the sensor-data chapter project. The seven initial research leads were reviewed; R01 integrates the verified pilot offline. Compiler execution, interactive course views, and real grading remain future tasks.
 
 ## Next assignment
 
-**R01 release verification in progress.** The local Windows installer and native database smoke test pass. The tagged GitHub workflow must still verify launch with outbound network blocked and publish the release before R01 is complete. R02 has not started.
+**R01 is complete and released** as the Windows offline catalog preview. R02, the native compiler/job controller, is the next eligible task; it has not started.
 
 ## Foundation verification
 
@@ -77,10 +77,13 @@ For each task append: task ID; completed/draft/blocked; files changed; exact che
 - Limitation: MinGW's linker cannot find `-lasan`, so the optional AddressSanitizer case remains unavailable, not passed. These authoring verifiers run only repository-owned candidates and are not learner-code sandboxes. The release gate validates content structure and recorded evidence; it does not establish UI/runtime readiness, universal memory safety, or external redistribution rights.
 - Next eligible task: R01, offline Rust/Tauri host and catalog.
 
-### R01 - implementation complete; release verification pending (2026-10-13)
+### R01 - completed; Windows offline release verified (2026-10-13)
 
 - Added the Rust/Tauri 2.12.2 Windows host, pinned Cargo/npm dependencies, bundled approved studio/font/icon, transactional catalog and learner migrations, and a content importer that checks schema versions, stable IDs, prerequisites, objective coverage, citations, evidence hashes, bounded lab profiles, and package-contained paths. The app stores the catalog and learner drafts in separate SQLite databases.
 - The desktop catalog loads three course outlines, 24 chapters, 14 verified pilot records, and eight lexicon terms. Search and record lookup use the bundled SQLite catalog. Open Lab draft load/save uses learner schema v2; migration tests preserve existing source bytes and browser import does not replace a native draft. Non-catalog course interactions remain labeled previews.
 - `py -3 tools/check_foundation.py --release` passed. `node --check design/studio.js`, `cargo fmt --manifest-path src-tauri/Cargo.toml --all -- --check`, `cargo clippy --locked --all-targets --manifest-path src-tauri/Cargo.toml -- -D warnings`, and `cargo test --locked --all-targets --manifest-path src-tauri/Cargo.toml` passed; Rust tests: 5 passed, 0 failed.
 - Built `src-tauri/target/release/bundle/nsis/Machine Room_0.1.0_x64-setup.exe` locally (209.57 MiB). Launched the packaged executable and checked the real local databases: 3 courses, 24 chapters, 14 catalog items, 8 lexicon entries, searchable pilot text, and learner schema v2. Inspected the course collection and chapter outline screenshots at 1440x1000.
-- Remaining release gate: the GitHub tag workflow must block outbound access for the app/WebView2 processes, repeat the database smoke check, and upload the installer. Keep R01 marked pending until that workflow passes.
+- The first Windows workflow run (38463181306) exposed a byte-level evidence-hash mismatch because text line endings depended on the checkout platform. `.gitattributes` now pins text files to LF; a fresh clone with `core.autocrlf=true` passed `py -3 tools/check_foundation.py --release`.
+- Successful Windows release run [38464096144](https://github.com/atobouh/c-labs/actions/runs/38464096144): content/evidence gate, JavaScript syntax, rustfmt, Clippy, and all five Rust tests passed. `npm run tauri:build:offline` produced a 209.56 MiB NSIS installer, mostly the bundled Microsoft WebView2 offline runtime so installation needs no network. The firewall smoke test blocked outbound access for the app and WebView2, launched the app, and verified 3 courses, 24 chapters, 14 catalog records, 8 lexicon entries, searchable pilot text, and learner schema v2.
+- Published [Machine.Room_0.1.0_x64-setup.exe](https://github.com/atobouh/c-labs/releases/download/v0.1.0-r01/Machine.Room_0.1.0_x64-setup.exe) in the [R01 GitHub prerelease](https://github.com/atobouh/c-labs/releases/tag/v0.1.0-r01). Asset size: 219,740,880 bytes; SHA-256: `41c0fd5b97df3451fa09803a4151fbcf1b022f1fc82ccedc2fccdc4c59326469`.
+- R01 remains a catalog/host shell: lesson, exercise, animation, lab, and project interactions beyond catalog lookup are previews; compiler execution and grading are not implemented.
