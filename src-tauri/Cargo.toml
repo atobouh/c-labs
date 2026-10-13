@@ -1,0 +1,25 @@
+[package]
+name = "machine-room"
+version = "0.1.0"
+description = "Offline C learning studio"
+authors = ["C-Lab contributors"]
+edition = "2024"
+rust-version = "1.90"
+
+[lib]
+name = "machine_room_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[[bin]]
+name = "machine-room"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "=2.7.2", features = [] }
+
+[dependencies]
+rusqlite = { version = "=0.40.2", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10.9"
+tauri = { version = "=2.12.2", default-features = false, features = ["wry"] }

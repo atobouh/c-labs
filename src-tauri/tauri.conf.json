@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Machine Room",
+  "version": "0.1.0",
+  "identifier": "com.machineroom.clab",
+  "build": {
+    "frontendDist": "../design"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "label": "main",
+        "title": "Machine Room",
+        "url": "studio.html",
+        "width": 1440,
+        "height": 920,
+        "minWidth": 1024,
+        "minHeight": 768,
+        "resizable": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self' asset:; connect-src ipc: http://ipc.localhost; img-src 'self' asset: data:; style-src 'self' 'unsafe-inline'; font-src 'self' asset: data:; script-src 'self'; object-src 'none'; base-uri 'self'; frame-src 'none'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "icon": ["icons/icon.ico"],
+    "category": "Education",
+    "shortDescription": "An offline C learning studio",
+    "longDescription": "Learn C with original lessons, diagram exercises, guided labs, and projects. Course content and learner drafts stay on this computer.",
+    "resources": {
+      "../foundation/curriculum.json": "course-data/foundation/curriculum.json",
+      "../foundation/pilot.json": "course-data/foundation/pilot.json",
+      "../foundation/evidence.json": "course-data/foundation/evidence.json",
+      "../foundation/sources.json": "course-data/foundation/sources.json",
+      "../content/foundations/arrays-memory/": "course-data/content/foundations/arrays-memory/"
+    },
+    "windows": {
+      "webviewInstallMode": {
+        "type": "offlineInstaller"
+      },
+      "nsis": {
+        "installMode": "currentUser"
+      }
+    }
+  }
+}

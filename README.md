@@ -1,44 +1,46 @@
-# Machine Room ? C learning project
+# Machine Room - Offline C Learning Studio
 
-This repository contains the C-Lab / Machine Room project only. Its Git root is this `c-lab/` directory; sibling projects such as Tandem are separate and are not part of this repository.
+This repository contains the C-Lab / Machine Room project only. Its Git root is this `c-lab/` directory; neighboring projects such as Tandem are separate repositories.
 
-## Preview the approved shell
+## Run the desktop app
 
-From this directory, run:
+Install Node.js 22+, Rust 1.90+, the Visual Studio C++ build tools, and WebView2. From this directory:
 
 ```powershell
-py -m http.server 8768 --bind 127.0.0.1
+npm ci
+npm run tauri:dev
 ```
 
-Open <http://127.0.0.1:8768/design/studio.html>. The prototype is fully local and demonstrates the course collection, chapter lessons, diagram exercises, guided labs, project gate, lexicon, open lab, and review. Sample progress and checks are design scenarios; compiler execution, application grading, persistence, and the Tauri host are not implemented yet.
+Build the Windows installer, including the offline WebView2 installer:
 
-Screen captures and their gallery are in `screens/`; design explorations and the approved HTML/CSS/JS shell are in `design/`.
+```powershell
+npm run tauri:build:offline
+```
+
+The NSIS installer is written under `src-tauri/target/release/bundle/nsis/`. Download the R01 installer from the [GitHub release](https://github.com/atobouh/c-labs/releases/tag/v0.1.0-r01) after its Windows workflow passes.
+
+## Offline data and current scope
+
+The app embeds the approved local studio, three course outlines, the verified Arrays & Memory pilot package, and its lexicon. It imports and validates these files into a versioned SQLite catalog on first launch; course search and record lookup use that database without network access. Learner drafts live in a separate SQLite database and survive transactional schema upgrades. Existing browser drafts can be imported once without replacing a native draft.
+
+R01 delivers the native host, catalog, course outline view, local search, lexicon, and draft storage. Lesson, exercise, animation, lab execution, project grading, and chapter progression remain clearly marked previews. The app does not compile or execute learner code.
 
 ## Project layout
 
-- `assets/` ? bundled font and its license.
-- `content/` ? original lesson, exercise, animation, lab, and project records and C fixtures.
-- `design/` ? approved shell, visual direction, reference board, previews, and archived prototypes.
-- `foundation/` ? course map, reviewed sources, pilot manifest, and verification evidence.
-- `handoff/` ? task queue, implementation contracts, QA, and contributor handoff.
-- `research/` ? course/product research; third-party desktop captures remain local-only and are ignored by Git pending individual rights review.
-- `screens/` ? reviewed screenshots and gallery.
-- `specimens/` ? small verified C examples.
-- `tools/` ? dependency-free Python validation scripts.
+- `src-tauri/` - Rust host, catalog validation/import, SQLite migrations, and Tauri configuration.
+- `design/` - approved HTML/CSS/JS studio and bundled local font.
+- `foundation/` and `content/` - course map, source/evidence manifests, and verified pilot records.
+- `handoff/` - task queue, contracts, status, and contributor instructions.
+- `tools/` - content validators and Windows offline-launch smoke test.
+- `screens/`, `specimens/`, and `research/` - reviewed screenshots, small C examples, and research notes.
 
 ## Checks
 
-Run from the repository root. GCC is required for the C verification commands; the recorded Windows profile uses GCC 13.2.0 MinGW-w64.
-
 ```powershell
-py -3 tools/check_foundation.py
-py -3 tools/test_foundation.py
-py -3 tools/test_learning_models.py
-py -3 tools/verify_lesson_examples.py
-py -3 tools/verify_labs.py --compiler gcc
-py -3 tools/verify_project.py --compiler gcc
 py -3 tools/check_foundation.py --release
 node --check design/studio.js
+cargo fmt --manifest-path src-tauri/Cargo.toml --all -- --check
+cargo test --locked --all-targets --manifest-path src-tauri/Cargo.toml
 ```
 
-The release checker verifies structure and recorded evidence; it does not prove factual accuracy, license rights, or desktop-runtime readiness. The optional MinGW AddressSanitizer case is unavailable because this GCC distribution lacks `-lasan`.
+Course authoring checks are documented in `handoff/STATUS.md`. The Windows release workflow runs the content gate, Rust tests, installer build, and a launch smoke test with WebView network access blocked.

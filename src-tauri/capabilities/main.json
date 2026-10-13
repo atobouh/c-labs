@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-window",
+  "description": "The learning studio can invoke its explicitly registered local catalog and draft commands.",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}

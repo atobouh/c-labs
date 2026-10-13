@@ -1,0 +1,3 @@
+ALTER TABLE drafts ADD COLUMN language TEXT NOT NULL DEFAULT 'C17';
+ALTER TABLE drafts ADD COLUMN updated_at TEXT NOT NULL DEFAULT '';
+UPDATE drafts SET updated_at = CURRENT_TIMESTAMP WHERE updated_at = '';

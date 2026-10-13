@@ -1,0 +1,57 @@
+name: Windows offline release
+
+on:
+  push:
+    tags:
+      - "v*-r01"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    steps:
+      - name: Check out C-Lab
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      - name: Install the pinned Tauri CLI
+        run: npm ci
+
+      - name: Verify course records and frontend syntax
+        shell: pwsh
+        run: |
+          py -3 tools/check_foundation.py --release
+          node --check design/studio.js
+          cargo fmt --manifest-path src-tauri/Cargo.toml --all -- --check
+          cargo clippy --locked --all-targets --manifest-path src-tauri/Cargo.toml -- -D warnings
+
+      - name: Test catalog import and storage migrations
+        run: cargo test --locked --all-targets --manifest-path src-tauri/Cargo.toml
+
+      - name: Build the offline Windows installer
+        run: npm run tauri:build:offline
+
+      - name: Smoke launch with WebView network blocked
+        shell: pwsh
+        run: .\tools\smoke_tauri_offline.ps1 -Executable .\src-tauri\target\release\machine-room.exe
+
+      - name: Publish downloadable R01 preview
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $installer = Get-ChildItem -LiteralPath '.\src-tauri\target\release\bundle\nsis' -Filter '*setup.exe' -File | Select-Object -First 1
+          if (-not $installer) { throw 'Tauri did not produce an NSIS setup executable.' }
+          gh release create $env:GITHUB_REF_NAME $installer.FullName --repo $env:GITHUB_REPOSITORY --verify-tag --title 'Machine Room - R01 offline catalog preview' --notes-file .github/release-notes-r01.md --prerelease

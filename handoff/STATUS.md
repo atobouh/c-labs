@@ -5,13 +5,13 @@ Updated: 2026-10-13.
 ## Baseline
 
 - Design direction approved by user; Open Lab scrollbar/focus polish still pending.
-- Current shell and specimens exist; prior prototype checks are recorded in `QA.md`.
-- Runtime, course corpus, and actual grading remain unimplemented.
-- Foundations F01-F06 are complete and the pilot content/evidence release gate passes. The package includes the locked API, four original lessons and compiled examples, lexicon, three diagram exercises, two animation models, three labs, and the sensor-data chapter project. The seven initial research leads were reviewed; app runtime, offline catalog integration, and real grading are still unimplemented.
+- Approved shell and specimens remain the basis of the desktop app; prior prototype checks are recorded in `QA.md`.
+- R01's Rust/Tauri host, offline catalog, search, lexicon, and learner draft storage are implemented. Compiler integration and actual grading remain unimplemented.
+- Foundations F01-F06 are complete and the pilot content/evidence release gate passes. The package includes the locked API, four original lessons and compiled examples, lexicon, three diagram exercises, two animation models, three labs, and the sensor-data chapter project. The seven initial research leads were reviewed; R01 integrates the verified pilot offline. Compiler execution, interactive course views, and real grading remain future tasks.
 
 ## Next assignment
 
-**R01: Create the offline Rust/Tauri host and catalog.** Follow TASKS.md, preserve the approved shell, and load the now-verified pilot records offline. Runtime, compiler integration, and application-level grading remain future work.
+**R01 release verification in progress.** The local Windows installer and native database smoke test pass. The tagged GitHub workflow must still verify launch with outbound network blocked and publish the release before R01 is complete. R02 has not started.
 
 ## Foundation verification
 
@@ -76,3 +76,11 @@ For each task append: task ID; completed/draft/blocked; files changed; exact che
 - Final suite: `py -3 tools/check_foundation.py --release` and the draft checker passed; `py -3 tools/test_foundation.py` passed 13 tests; `py -3 tools/test_learning_models.py` passed 6; all four lesson examples compiled warning-free; all three lab references passed 10, 10, and 13 checks and their nine mutations were rejected.
 - Limitation: MinGW's linker cannot find `-lasan`, so the optional AddressSanitizer case remains unavailable, not passed. These authoring verifiers run only repository-owned candidates and are not learner-code sandboxes. The release gate validates content structure and recorded evidence; it does not establish UI/runtime readiness, universal memory safety, or external redistribution rights.
 - Next eligible task: R01, offline Rust/Tauri host and catalog.
+
+### R01 - implementation complete; release verification pending (2026-10-13)
+
+- Added the Rust/Tauri 2.12.2 Windows host, pinned Cargo/npm dependencies, bundled approved studio/font/icon, transactional catalog and learner migrations, and a content importer that checks schema versions, stable IDs, prerequisites, objective coverage, citations, evidence hashes, bounded lab profiles, and package-contained paths. The app stores the catalog and learner drafts in separate SQLite databases.
+- The desktop catalog loads three course outlines, 24 chapters, 14 verified pilot records, and eight lexicon terms. Search and record lookup use the bundled SQLite catalog. Open Lab draft load/save uses learner schema v2; migration tests preserve existing source bytes and browser import does not replace a native draft. Non-catalog course interactions remain labeled previews.
+- `py -3 tools/check_foundation.py --release` passed. `node --check design/studio.js`, `cargo fmt --manifest-path src-tauri/Cargo.toml --all -- --check`, `cargo clippy --locked --all-targets --manifest-path src-tauri/Cargo.toml -- -D warnings`, and `cargo test --locked --all-targets --manifest-path src-tauri/Cargo.toml` passed; Rust tests: 5 passed, 0 failed.
+- Built `src-tauri/target/release/bundle/nsis/Machine Room_0.1.0_x64-setup.exe` locally (209.57 MiB). Launched the packaged executable and checked the real local databases: 3 courses, 24 chapters, 14 catalog items, 8 lexicon entries, searchable pilot text, and learner schema v2. Inspected the course collection and chapter outline screenshots at 1440x1000.
+- Remaining release gate: the GitHub tag workflow must block outbound access for the app/WebView2 processes, repeat the database smoke check, and upload the installer. Keep R01 marked pending until that workflow passes.
