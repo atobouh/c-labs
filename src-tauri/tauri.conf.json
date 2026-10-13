@@ -39,9 +39,6 @@
       "../content/foundations/arrays-memory/": "course-data/content/foundations/arrays-memory/"
     },
     "windows": {
-      "webviewInstallMode": {
-        "type": "offlineInstaller"
-      },
       "nsis": {
         "installMode": "currentUser"
       }

@@ -40,8 +40,16 @@ jobs:
       - name: Test catalog import and storage migrations
         run: cargo test --locked --all-targets --manifest-path src-tauri/Cargo.toml
 
-      - name: Build the offline Windows installer
-        run: npm run tauri:build:offline
+      - name: Build the small Windows installer
+        run: npm run tauri:build:windows
+
+      - name: Check installer size
+        shell: pwsh
+        run: |
+          $installer = Get-ChildItem -LiteralPath '.\src-tauri\target\release\bundle\nsis' -Filter '*setup.exe' -File | Select-Object -First 1
+          if (-not $installer) { throw 'NSIS installer is missing.' }
+          if ($installer.Length -gt 30MB) { throw 'Default installer exceeded 30 MiB; check for bundled runtime or unintended resources.' }
+          Write-Output "Default installer: $($installer.Length) bytes"
 
       - name: Smoke launch with WebView network blocked
         shell: pwsh

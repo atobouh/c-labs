@@ -6,7 +6,8 @@
   "scripts": {
     "tauri:dev": "tauri dev",
     "tauri:build": "tauri build",
-    "tauri:build:offline": "tauri build --bundles nsis"
+    "tauri:build:windows": "tauri build --bundles nsis",
+    "tauri:build:offline": "tauri build --bundles nsis --config src-tauri/tauri.offline.conf.json"
   },
   "devDependencies": {
     "@tauri-apps/cli": "2.12.2"

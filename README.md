@@ -11,13 +11,13 @@ npm ci
 npm run tauri:dev
 ```
 
-Build the Windows installer, including the offline WebView2 installer:
+Build the small Windows installer (the default). It uses the installed WebView2 runtime; setup needs internet only if that runtime is missing. The app and bundled courses work offline:
 
 ```powershell
-npm run tauri:build:offline
+npm run tauri:build:windows
 ```
 
-The NSIS installer is written under `src-tauri/target/release/bundle/nsis/`. Download the R01 installer from the [GitHub release](https://github.com/atobouh/c-labs/releases/tag/v0.1.0-r01) after its Windows workflow passes.
+The NSIS installer is written under `src-tauri/target/release/bundle/nsis/`. Download the [small R01 installer](https://github.com/atobouh/c-labs/releases/download/v0.1.0-r01/Machine.Room_0.1.0_x64-setup-slim.exe). For installation on a computer without WebView2 and without internet, `npm run tauri:build:offline` explicitly bundles Microsoft's large offline runtime installer.
 
 ## Offline data and current scope
 
