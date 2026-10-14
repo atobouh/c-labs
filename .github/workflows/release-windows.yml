@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*-r03"
+      - "v*-r04"
 
 permissions:
   contents: write
@@ -46,8 +47,20 @@ jobs:
       - name: Build the small Windows installer
         run: npm run tauri:build:windows
 
+      - name: Ensure the test runner has WebView2
+        shell: pwsh
+        run: |
+          $runtimeRoot = Join-Path ${env:ProgramFiles(x86)} 'Microsoft\EdgeWebView\Application'
+          $runtime = Get-ChildItem -LiteralPath $runtimeRoot -Filter 'msedgewebview2.exe' -File -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (-not $runtime) {
+            $bootstrap = Join-Path $env:RUNNER_TEMP 'clab-webview-bootstrap.exe'
+            Invoke-WebRequest 'https://go.microsoft.com/fwlink/p/?LinkId=2124703' -OutFile $bootstrap
+            $setup = Start-Process -FilePath $bootstrap -ArgumentList '/silent','/install' -WindowStyle Hidden -Wait -PassThru
+            if ($setup.ExitCode -ne 0) { throw "WebView2 prerequisite installation failed: $($setup.ExitCode)" }
+          }
+
       - name: Verify the native offline learning pilot
-        run: node tools/test_desktop_r03.mjs src-tauri/target/release/machine-room.exe src-tauri/target/r03-native-evidence
+        run: node tools/test_desktop_r03.mjs src-tauri/target/release/machine-room.exe src-tauri/target/r03-native-evidence tools/audit_desktop_r04.mjs
 
       - name: Preserve native integration evidence
         if: always()
@@ -82,5 +95,5 @@ jobs:
           if ($LASTEXITCODE -eq 0) {
             gh release upload $env:GITHUB_REF_NAME $installer.FullName --repo $env:GITHUB_REPOSITORY --clobber
           } else {
-            gh release create $env:GITHUB_REF_NAME $installer.FullName --repo $env:GITHUB_REPOSITORY --verify-tag --title 'Machine Room - R02/R03 offline learning pilot' --notes-file .github/release-notes-r03.md --prerelease
+            gh release create $env:GITHUB_REF_NAME $installer.FullName --repo $env:GITHUB_REPOSITORY --verify-tag --title 'Machine Room - verified offline learning pilot' --notes-file .github/release-notes-r04.md --prerelease
           }

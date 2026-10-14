@@ -30,6 +30,7 @@
   function mount(options) {
     if (!native() || !$('#openCode')) return;
     context = options || {};
+    $('#openCode').addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();$('#nativeRun')?.focus();}});
     const flagsLabel=document.querySelector('label[for="libraryFlags"]');
     if(flagsLabel) flagsLabel.textContent='Link libraries';
     if($('#libraryFlags')) $('#libraryFlags').placeholder='-lm or -lSDL2';

@@ -256,6 +256,26 @@ fn real_bundled_grading_accepts_references_and_rejects_starters_and_mutants() {
             );
             if expected {
                 assert!(!result.checks.is_empty());
+                if id == "project-sensor" && compiler.identity.to_lowercase().contains("mingw") {
+                    let mut incomplete_metadata = compiler.clone();
+                    incomplete_metadata.target.clear();
+                    let work = base.join("mingw-identity-profile");
+                    std::fs::create_dir_all(&work).unwrap();
+                    let result = grade(
+                        "identity-profile",
+                        &JobControl::default(),
+                        &work,
+                        &incomplete_metadata,
+                        &package,
+                        &sources,
+                    )
+                    .unwrap();
+                    assert_eq!(
+                        result.status, "passed",
+                        "MinGW identity must preserve the C17 printf profile: {}",
+                        result.stderr
+                    );
+                }
             }
         }
     }

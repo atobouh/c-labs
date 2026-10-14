@@ -1,7 +1,8 @@
 // Dependency-free native WebView2 integration test. Node 22+; never uses learner data.
 import {spawn} from 'node:child_process';
-import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {readFile,writeFile,mkdir,copyFile} from 'node:fs/promises';
 import {resolve,join} from 'node:path';
+import {pathToFileURL} from 'node:url';
 import assert from 'node:assert/strict';
 
 const executable=process.argv[2];
@@ -10,13 +11,16 @@ if(!executable||!output)throw Error('Usage: node tools/test_desktop_r03.mjs <exe
 const root=resolve(output);
 await mkdir(root,{recursive:false}); // Refuse to overwrite a prior evidence/data directory.
 const data=join(root,'learner');await mkdir(data);
+const fixture=process.argv.find(a=>a.startsWith('--audit-fixture='))?.slice('--audit-fixture='.length);
+if(fixture){for(const suffix of ['', '-wal', '-shm']){try{await copyFile(fixture+suffix,join(data,'learner.sqlite'+suffix));}catch(e){if(suffix&&e.code==='ENOENT')continue;throw e;}}}
 const port=9227;
 const evidence={executable:resolve(executable),data,checks:[],errors:[]};
 let child,client;
+const auditClient={send:(...args)=>client.send(...args)};
 const delay=ms=>new Promise(r=>setTimeout(r,ms));
 async function until(fn,label,limit=20000){const start=Date.now();while(Date.now()-start<limit){try{const result=await fn();if(result)return result;}catch{}await delay(80);}throw Error('Timed out: '+label);}
 async function connect(){
-  const target=await until(async()=>{const targets=await(await fetch(`http://127.0.0.1:${port}/json/list`)).json();return targets.find(t=>t.url.includes('studio.html'));},'native page');
+  const target=await until(async()=>{const targets=await(await fetch(`http://127.0.0.1:${port}/json/list`)).json();return targets.find(t=>t.url.includes('studio.html'));},'native page (requires installed WebView2)',60000);
   const socket=new WebSocket(target.webSocketDebuggerUrl);await new Promise((r,j)=>{socket.addEventListener('open',r,{once:true});socket.addEventListener('error',j,{once:true});});
   let next=0;const pending=new Map();
   socket.addEventListener('message',event=>{const msg=JSON.parse(event.data);if(msg.id){const p=pending.get(msg.id);pending.delete(msg.id);if(msg.error)p?.reject(Error(JSON.stringify(msg.error)));else p?.resolve(msg.result);}else if(msg.method==='Runtime.exceptionThrown')evidence.errors.push(msg.params.exceptionDetails.text+': '+JSON.stringify(msg.params.exceptionDetails.exception));});
@@ -25,7 +29,7 @@ async function connect(){
   await client.send('Network.enable');
   await client.send('Network.emulateNetworkConditions',{offline:true,latency:0,downloadThroughput:0,uploadThroughput:0});
 }
-async function launch(){child=spawn(resolve(executable),[],{windowsHide:true,env:{...process.env,CLAB_DATA_DIR:data,WEBVIEW2_USER_DATA_FOLDER:join(root,'webview'),WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS:`--remote-debugging-port=${port}`},stdio:'ignore'});await connect();}
+async function launch(){child=spawn(resolve(executable),[],{windowsHide:true,env:{...process.env,CLAB_DATA_DIR:data,WEBVIEW2_USER_DATA_FOLDER:join(root,'webview'),WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS:`--remote-debugging-port=${port}`},stdio:['ignore','ignore','pipe']});child.stderr.on('data',bytes=>{evidence.launchDiagnostics=((evidence.launchDiagnostics||'')+bytes.toString()).slice(-4096);});await connect();}
 async function stop(){client?.close();const processToStop=child;if(!processToStop||processToStop.exitCode!==null)return;await new Promise(r=>{processToStop.once('exit',r);processToStop.kill();});await delay(350);}
 async function evaluate(expression){const r=await client.send('Runtime.evaluate',{expression,awaitPromise:true,returnByValue:true});if(r.exceptionDetails)throw Error(r.exceptionDetails.exception?.description||r.exceptionDetails.text);return r.result.value;}
 const invoke=(command,args={})=>evaluate(`window.__TAURI__.core.invoke(${JSON.stringify(command)},${JSON.stringify(args)})`);
@@ -40,6 +44,8 @@ async function grade(){await click('[data-pilot-action="grade"]');await until(()
 async function reference(item){const manifest=JSON.parse(await readFile(item.artifact,'utf8'));const folder=resolve(item.artifact,'..');return Promise.all(manifest.learner_source_paths.map(async(path,i)=>({path,text:await readFile(join(folder,manifest.solution_files[i]),'utf8')})));}
 try{
   await launch();
+  if(fixture){await(await import(pathToFileURL(resolve(process.argv[4])).href)).audit({client:auditClient,evaluate,invoke,click,text,route,fill,snapshot,until,pass,launch,stop,root});assert.deepEqual(evidence.errors,[]);}
+  else {
   const pilot=await invoke('get_pilot');assert.equal(pilot.items.length,13);pass('native bundled pilot','13 verified learning records');
   await route('learn');assert.match(await text('.reader'),/Objects side by side/);
   for(let i=0;i<4;i++){
@@ -80,4 +86,7 @@ try{
   await route('project');await until(()=>evaluate('Boolean(document.querySelector("#pilotCode"))'),'project layout');
   for(const width of [1024,390]){await client.send('Emulation.setDeviceMetricsOverride',{width,height:844,deviceScaleFactor:1,mobile:false});assert.equal(await evaluate('document.documentElement.scrollWidth>window.innerWidth'),false);await snapshot('project-'+width);}await client.send('Emulation.clearDeviceMetricsOverride');pass('compiled UI at 1024px and 390px','no page horizontal overflow');
   assert.deepEqual(evidence.errors,[]);pass('no native JavaScript exceptions');
-}catch(e){evidence.failure=e.stack;console.error(e.stack);process.exitCode=1;}finally{await writeFile(join(root,'evidence.json'),JSON.stringify(evidence,null,2));await stop();}
+  if(process.argv[4])await(await import(pathToFileURL(resolve(process.argv[4])).href)).audit({client:auditClient,evaluate,invoke,click,text,route,fill,snapshot,until,pass,launch,stop,root});
+  assert.deepEqual(evidence.errors,[]);
+  }
+}catch(e){evidence.failure=e.stack;console.error(e.stack);process.exitCode=1;try{evidence.failureState=await evaluate('({active:document.activeElement.outerHTML,screen:document.querySelector("#screen").innerText})');await snapshot('failure');}catch{}}finally{await writeFile(join(root,'evidence.json'),JSON.stringify(evidence,null,2));await stop();}

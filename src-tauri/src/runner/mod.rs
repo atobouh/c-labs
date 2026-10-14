@@ -606,6 +606,11 @@ fn probe_compiler(path: &Path, root: &Path) -> Result<Compiler, String> {
         2000,
         16384,
     )?;
+    if target.status != "passed" || target.stdout.trim().is_empty() {
+        return Err(
+            "Could not determine the compiler target. Try configuring the compiler again.".into(),
+        );
+    }
     let probe = |standard: &str| -> Result<bool, String> {
         Ok(run_process(
             Command::new(&path)
@@ -647,7 +652,9 @@ pub(crate) fn compiler_command(compiler: &Compiler, root: &Path, standard: &str)
         "-Wpedantic",
         "-fdiagnostics-color=never",
     ]);
-    if compiler.target.to_lowercase().contains("mingw") {
+    if compiler.target.to_lowercase().contains("mingw")
+        || compiler.identity.to_lowercase().contains("mingw")
+    {
         command.arg("-D__USE_MINGW_ANSI_STDIO=1");
     }
     // MinGW installations sometimes keep required compiler/runtime DLLs beside gcc.

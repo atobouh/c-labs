@@ -1,0 +1,29 @@
+/* R04: preserve the studio, keep controls reachable, and expose keyboard focus. */
+.pilot-model:focus-visible{outline:none}
+.pilot-model:focus-visible>.section-head h2{border-left:3px solid #5476a6;padding-left:10px}
+summary:focus-visible{outline:2px solid #7394c5;outline-offset:4px;border-radius:2px}
+.pilot-prose,.pilot-package-intro,.pilot-workbench,.pilot-model-layout>*{min-width:0}
+.pilot-workbench .workspace-head .language{white-space:nowrap}
+.pilot-variables dt,.pilot-variables dd{overflow-wrap:anywhere}
+.phasebar button{white-space:nowrap}
+@media(max-width:1000px){
+  .phasebar .phase-count{display:none}
+  .lesson-outline{display:block;grid-row:1;padding-top:0}
+  .lesson-outline h3{margin-bottom:8px}
+  .lesson-outline button{display:inline-flex;width:auto;max-width:100%;margin:0 8px 8px 0;padding:8px 12px;border-radius:4px}
+  .lesson-outline .goal{display:none}
+}
+@media(max-width:690px){
+  .sidebar nav{flex-wrap:wrap;overflow:visible}
+  .pilot-workbench .file-tree{display:flex;flex-wrap:wrap;gap:6px;padding:12px}
+  .pilot-workbench .file-tree-title{width:100%;margin:0 0 4px}
+  .pilot-workbench .file-tree button{width:auto;max-width:100%;padding:8px 10px;margin:0}
+  .pilot-workbench .file-tree .lib-info{display:flex;flex-wrap:wrap;gap:6px;width:100%;padding-top:10px;margin-top:4px}
+  .pilot-workbench .file-tree .lib-info strong{width:100%;font-size:11px}
+  .pilot-package-intro .section-head{flex-wrap:wrap;gap:10px}
+  .openlab-top{flex-wrap:wrap}
+  .toolchain-strip{margin-left:0;width:100%;flex-wrap:wrap}
+  .toolchain-strip>span[role=status]{max-width:calc(100% - 110px)}
+  .pilot-answer-fields label{max-width:100%}
+  .pilot-prose .pilot-code{padding:16px;max-width:100%}
+}

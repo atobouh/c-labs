@@ -17,13 +17,13 @@ Build the small Windows installer (the default). It uses the installed WebView2 
 npm run tauri:build:windows
 ```
 
-The NSIS installer is written under `src-tauri/target/release/bundle/nsis/`. Download the [small R03 installer](https://github.com/atobouh/c-labs/releases/download/v0.1.0-r03/Machine.Room_0.1.0_x64-setup.exe). For installation on a computer without WebView2 and without internet, `npm run tauri:build:offline` explicitly bundles Microsoft's large offline runtime installer.
+The NSIS installer is written under `src-tauri/target/release/bundle/nsis/`. Download the [small R04 installer](https://github.com/atobouh/c-labs/releases/download/v0.1.0-r04/Machine.Room_0.1.0_x64-setup.exe). For installation on a computer without WebView2 and without internet, `npm run tauri:build:offline` explicitly bundles Microsoft's large offline runtime installer.
 
 ## Offline data and current scope
 
 The app embeds the approved local studio, three course outlines, the verified Arrays & Memory pilot package, and its lexicon. It imports and validates these files into a versioned SQLite catalog on first launch; course search and record lookup use that database without network access. Learner drafts live in a separate SQLite database and survive transactional schema upgrades. Existing browser drafts can be imported once without replacing a native draft.
 
-R01 delivers the native host, catalog, course outline view, local search, lexicon, and draft storage. R02 adds real Open Lab compilation/execution with an installed C17-capable GCC or Clang: use Configure beside the compiler status to select an executable when detection is unavailable. Jobs support live output, cancellation, deadlines, output bounds, and Windows process-tree cleanup. C23 is available only when the compiler accepts `-std=c23`. R03 connects the verified pilot: four lessons with runnable examples, three typed exercises, two reversible models, three editable labs, and the two-file graded sensor project. Drafts, hints, reviews, attempts, and version-bound unlocking survive restart. The explanation rubric is explicit self-review. Other chapters remain outlines; R04 full pilot polish is next.
+R01 delivers the native host, catalog, course outline view, local search, lexicon, and draft storage. R02 adds real Open Lab compilation/execution with an installed C17-capable GCC or Clang: use Configure beside the compiler status to select an executable when detection is unavailable. Jobs support live output, cancellation, deadlines, output bounds, and Windows process-tree cleanup. C23 is available only when the compiler accepts `-std=c23`. R03 connects the verified pilot: four lessons with runnable examples, three typed exercises, two reversible models, three editable labs, and the two-file graded sensor project. Drafts, hints, reviews, attempts, and version-bound unlocking survive restart. The explanation rubric is explicit self-review. Other chapters remain outlines; R04 preserves keyboard focus and source selections, keeps navigation/files reachable in compact layouts, labels older results honestly, and verifies loading/error/empty states. The completed pilot still assumes prior loops/functions and basic compilation. Chapter 1 authoring is next.
 
 The compiler is an installed prerequisite and is not downloaded automatically. Open Lab executes trusted local code with your privileges, rather than in a security sandbox. See [the runtime contract](handoff/RUNTIME.md) for supported platforms, limits, structured options, and test/data locations.
 
@@ -50,3 +50,11 @@ cargo test --locked --all-targets --manifest-path src-tauri/Cargo.toml
 Course authoring checks are documented in `handoff/STATUS.md`. The Windows release workflow runs the content gate, Rust tests, installer build, and a launch smoke test with WebView network access blocked.
 
 Native pilot integration checks run with Node 22 and an isolated data directory: `node tools/test_desktop_r03.mjs <machine-room.exe> <new-evidence-directory>`. See [learning runtime details](handoff/LEARNING-RUNTIME.md).
+
+Run the native R04 state/keyboard/layout audit after the learning regression suite:
+
+```powershell
+node tools/test_desktop_r03.mjs <machine-room.exe> <new-evidence-directory> tools/audit_desktop_r04.mjs
+```
+
+The harness creates isolated learner and WebView profiles, disables WebView network access, and records real results plus screenshots. Native windows currently require 1024x768; 768px and 390px checks use emulated WebView viewports. Full user interface verification is documented in `handoff/R04-QA.md`; this is not a screen-reader certification or a finished 24-chapter course.

@@ -1,0 +1,99 @@
+{
+  "executable": "D:\\c-lab-builds\\r01-slim\\release\\machine-room.exe",
+  "data": "D:\\c-lab-builds\\r04-verified-release\\learner",
+  "checks": [
+    {
+      "name": "native bundled pilot",
+      "detail": "13 verified learning records"
+    },
+    {
+      "name": "all four lesson examples execute offline",
+      "detail": "including the multi-file pointer/count example"
+    },
+    {
+      "name": "lesson navigation and read persistence"
+    },
+    {
+      "name": "wrong/correct typed answer, hint, and review queue"
+    },
+    {
+      "name": "all three exercise records"
+    },
+    {
+      "name": "reversible models, boundary stop, and reduced-motion static view"
+    },
+    {
+      "name": "native lab-trace-sum grading",
+      "detail": "11 real passing checks; starter rejected"
+    },
+    {
+      "name": "native lab-repair-boundary grading",
+      "detail": "11 real passing checks; starter rejected"
+    },
+    {
+      "name": "native lab-count-api grading",
+      "detail": "14 real passing checks; starter rejected"
+    },
+    {
+      "name": "stale passing submission cannot unlock"
+    },
+    {
+      "name": "real project acceptance and version-bound unlock",
+      "detail": "45 passing checks"
+    },
+    {
+      "name": "editor focus, selection, scrolling",
+      "detail": "{\"outline\":\"none\",\"shadow\":\"none\",\"selection\":12,\"scroll\":100}"
+    },
+    {
+      "name": "relaunch restores lesson, hint, review, changed draft, attempt history, and gate"
+    },
+    {
+      "name": "cancelled grading cannot replace the accepted gate"
+    },
+    {
+      "name": "hard-interrupted grading remains interrupted; earlier accepted gate unchanged"
+    },
+    {
+      "name": "successful grading after interrupted process"
+    },
+    {
+      "name": "course, project collection, review, lexicon, and Open Lab routes remain live"
+    },
+    {
+      "name": "compiled UI at 1024px and 390px",
+      "detail": "no page horizontal overflow"
+    },
+    {
+      "name": "no native JavaScript exceptions"
+    },
+    {
+      "name": "keyboard phase navigation"
+    },
+    {
+      "name": "hint preserves focus/input; different exercise starts clean"
+    },
+    {
+      "name": "model keyboard shortcuts are scoped; real empty review queue"
+    },
+    {
+      "name": "file cursor/scroll restore, Escape exits editor, stale result remains labelled"
+    },
+    {
+      "name": "fault-injected package error, loading, and retry recovery"
+    },
+    {
+      "name": "real compiler diagnostics; Open Lab keyboard exit"
+    },
+    {
+      "name": "real compiler absence/configuration recovery"
+    },
+    {
+      "name": "offline search, empty results, modal focus restore, local fonts"
+    },
+    {
+      "name": "all ten screens at 1024/768/390 widths; controls reachable; reduced-motion trace"
+    }
+  ],
+  "errors": []
+}
